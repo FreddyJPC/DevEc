@@ -1,0 +1,131 @@
+---
+---
+
+<nav class="header-container">
+  <div class="header-content">
+    <!-- LOGO / MARCA -->
+    <a href="/" class="logo">DevEc</a>
+
+    <!-- ENLACES DE NAVEGACIÓN -->
+    <ul class="nav-links">
+      <li><a href="#como-funciona">¿Cómo Funcionamos?</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#precios">Precio</a></li>
+      <li><a href="#faqs">FAQs</a></li>
+    </ul>
+
+    <!-- BOTÓN -->
+    <button class="header-button">Cuéntanos tu proyecto</button>
+  </div>
+</nav>
+
+<style>
+  /* Contenedor principal con efecto “glass” */
+  .header-container {
+    /* Para que “flote” y siga al usuario al hacer scroll */
+    position: fixed;
+    top: 1rem;               /* Separación desde arriba */
+    left: 50%;              /* Centrado horizontal */
+    transform: translateX(-50%);
+    width: 80%;             /* Ocupa el 80% del ancho de la pantalla */
+    z-index: 9999;          /* Asegura que quede sobre otros elementos */
+
+    /* Efecto vidrio */
+    background-color: rgba(13, 13, 13, 0.5); /* Fondo semitransparente */
+    backdrop-filter: blur(10px);            /* Desenfoque */
+    -webkit-backdrop-filter: blur(10px);    /* Soporte Safari */
+
+    /* Bordes y borde redondeado */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+
+    /* Opcional: Pequeña animación de aparición */
+    animation: fadeInDown 0.8s ease-in-out;
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;         /* Ajusta el espacio interno */
+    margin: 0 auto;     /* Centra el contenido dentro del nav */
+    padding: 0.75rem 0; /* Espacio vertical */
+  }
+
+  /* LOGO */
+  .logo {
+    font-family: var(--font-extended, sans-serif);
+    font-size: 1.5rem;
+    color: #fff; /* Blanco para contraste sobre fondo oscuro */
+    text-decoration: none;
+  }
+
+  /* Lista de navegación */
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-family: var(--font-primary, sans-serif);
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--color-accent, #00E599); /* Ejemplo: cambia al color de acento */
+  }
+
+  /* Botón a la derecha */
+  .header-button {
+    background-color: var(--color-accent, #00E599);
+    color: #000000;
+    border: none;
+    border-radius: 24px;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-primary, sans-serif);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .header-button:hover {
+    background-color: #fff;
+    color: var(--color-accent, #00E599);
+  }
+
+  /* Animación de entrada (opcional) */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsividad */
+  @media (max-width: 768px) {
+    .header-content {
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center; /* Centra los items en pantallas pequeñas */
+    }
+
+    .nav-links {
+      flex: 1 1 100%;
+      justify-content: center;
+      order: 2; /* Para que queden debajo del logo si deseas */
+    }
+
+    .header-button {
+      order: 3; /* Botón debajo de la navegación en móviles */
+    }
+  }
+</style>

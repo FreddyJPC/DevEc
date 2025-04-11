@@ -1,0 +1,237 @@
+---
+const steps = [
+  {
+    id: "01",
+    title: "Contacto",
+    description:
+      "No existe un mínimo en cuanto al tamaño del proyecto. Nos adaptamos a tu necesidad.",
+    bgColor: "rgb(220, 255, 214)", // Verde pastel
+    rotate: "-2deg",
+  },
+  {
+    id: "02",
+    title: "Presupuesto",
+    description:
+      "Analizamos el proyecto a fondo y te entregamos una cotización clara para llevar adelante tu idea.",
+    bgColor: "rgb(255, 239, 200)", // Naranja pastel
+    rotate: "3deg",
+  },
+  {
+    id: "03",
+    title: "Inicio",
+    description:
+      "Una vez aceptada la propuesta, iniciamos el desarrollo con metodologías ágiles.",
+    bgColor: "rgb(206, 255, 241)", // Celeste pastel
+    rotate: "-3deg",
+  },
+  {
+    id: "04",
+    title: "Feedback",
+    description:
+      "A medida que vamos avanzando, tendrás acceso al proyecto en tiempo real para revisar y brindar feedback.",
+    bgColor: "rgb(255, 240, 249)", // Rosa pastel
+    rotate: "2deg",
+  },
+  {
+    id: "05",
+    title: "Entrega",
+    description:
+      "Te entregamos el proyecto final con soporte y garantías de que supere tus expectativas.",
+    bgColor: "rgb(255, 232, 214)", // Rosa más claro
+    rotate: "-2deg",
+  },
+];
+---
+
+<section class="work-section" id="work">
+  <h2 class="section-title">Nuestra forma de trabajar</h2>
+
+  <div class="workflow-container">
+    <!-- Líneas de conexión -->
+    <img src="/img/lineOne.svg" alt="linea 3" class="line line-three" />
+    <img src="/img/lineOne.svg" alt="linea 1" class="line line-one" />
+    <img src="/img/lineTwo.svg" alt="linea 2" class="line line-two" />
+    <img src="/img/lineTwo.svg" alt="linea 0" class="line line-cero" />
+
+    <!-- Notas / Pasos -->
+    {steps.map((step, index) => (
+      <div
+        class="note-container"
+        style={`
+          top: ${index * 160}px; 
+          left: ${index % 2 === 0 ? '25%' : '55%'};
+          transform: rotate(${step.rotate});
+        `}
+      >
+        <!-- Carta exterior -->
+        <div class="note-outer">
+          <!-- Carta interior de color pastel -->
+          <div class="note-inner" style={`background-color:${step.bgColor}`}>
+            <div class="note-header">
+              <!-- El número va en su propia línea con la nueva fuente -->
+              <span class="note-id">{step.id}</span>
+              <h3 class="note-title">{step.title}</h3>
+            </div>
+            <p class="note-desc">{step.description}</p>
+          </div>
+        </div>
+        <!-- "Pin" en la parte superior -->
+        <div class="pin"></div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  /* Sección general */
+  .work-section {
+    background-color: #000000;
+    color: #000000;
+    padding: 4rem 2rem;
+    position: relative;
+    min-height: 800px;
+    text-align: center;
+  }
+
+  .section-title {
+    font-family: var(--font-primary, sans-serif);
+    font-size: 3rem;
+    color: #fff;
+    margin-bottom: 4rem;
+  }
+
+  /* Contenedor principal para ubicar notas y líneas */
+  .workflow-container {
+    position: relative;
+    width: 100%;
+    height: 1000px; /* Ajusta según cuántas notas tengas */
+    margin: 0 auto;
+    max-width: 1500px;
+  }
+
+  /* Líneas de conexión */
+  .line {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.7;
+  }
+  .line-three {
+    top: 650px; 
+    left: 40%; 
+    width: 250px; 
+  }
+  .line-one {
+    top: 300px; /* Ajusta la posición vertical */
+    left: 40%; /* Ajusta la posición horizontal */
+    width: 250px; /* Ajusta el tamaño */
+  }
+  .line-two {
+    top: 450px;
+    left: 40%;
+    width: 250px;
+  }
+
+  .line-cero {
+    top: 125px;
+    left: 40%;
+    width: 250px;
+  }
+
+  /* Cada nota con posición absoluta */
+  .note-container {
+    position: absolute;
+    z-index: 2;
+    width: 270px;
+    transition: transform 0.3s ease;
+  }
+
+  /* Carta exterior (sombra y borde) */
+  .note-outer {
+    background-color: #0C0D0D;
+    border-radius: 24px;
+    box-shadow: 
+      #fff 0px 0px 0px 2px, 
+      rgba(255, 255, 255, 0.15) 0px 11px 30px 0px;
+    padding: 1rem;
+  }
+
+  /* Carta interior (color pastel) */
+  .note-inner {
+    background-color: rgb(220, 255, 214);
+    border-radius: 16px;
+    padding: 1rem;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  /* Cabecera de la nota: número arriba y título abajo */
+  .note-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+  }
+
+  .note-id {
+    display: block;
+    font-size: 2rem;
+    font-family: "Just Me Again Down Here", cursive;
+    margin-bottom: 0.25rem;
+    text-align: left;
+  }
+
+  .note-title {
+    font-size: 1.1rem;
+    font-family: var(--font-primary, sans -serif);
+    margin: 0;
+  }
+
+  .note-desc {
+    font-size: 0.9rem;
+    font-family: var(--font-primary, sans-serif);
+    line-height: 1.4;
+    text-align: left;
+    color: #333;
+  }
+
+  /* "Pin" simulando la tachuela */
+  .pin {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #00E599;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px #fff;
+    z-index: 3;
+  }
+
+  /* Hover sobre la nota */
+  .note-container:hover {
+    transform: scale(1.05) rotate(0deg) !important;
+  }
+
+  /* RESPONSIVE: En pantallas pequeñas, apilamos las notas */
+  @media (max-width: 768px) {
+    .workflow-container {
+      height: auto;
+    }
+    .line {
+      display: none;
+    }
+    .note-container {
+      position: static;
+      margin: 2rem auto;
+      transform: rotate(0deg) !important;
+      width: 80%;
+      max-width: 300px;
+    }
+    .note-outer {
+      margin: 0 auto;
+    }
+  }
+</style>

@@ -1,0 +1,264 @@
+---
+const pricingPlans = [
+  {
+    title: "Básico",
+    price: "$50 - $150",
+    features: [
+      "Landing Pages",
+      "Páginas Informativas",
+      "Portafolios",
+      "Diseños en Figma"
+    ],
+    cta: "Contáctanos",
+  },
+  {
+    title: "Intermedio",
+    price: "$200 - $500",
+    features: [
+      "Sitios Webs Corporativos",
+      "Chatbots con IA",
+      "Blogs",
+      "Más ideas que se te ocurran..."
+    ],
+    cta: "Contáctanos",
+  },
+  {
+    title: "Avanzado",
+    price: "$600 - $1000",
+    features: [
+      "Aplicaciones Web a Medida",
+      "CRM",
+      "Tiendas Ecommerce",
+      "Más funciones avanzadas..."
+    ],
+    cta: "Contáctanos",
+  }
+];
+---
+
+<section class="pricing-section" id="precios">
+  <div class="pricing-header">
+    <h2 class="neon-title">Precios</h2>
+    <p class="subtitle">
+      Planes que se ajustan a tu proyecto. Encuentra el ideal para ti.
+    </p>
+  </div>
+
+  <!-- GRID DE 3 PLANES -->
+  <div class="pricing-grid">
+    {pricingPlans.map((plan, index) => (
+      <div 
+        class={`pricing-card ${index === 1 ? "no-bg highlight-border" : ""}`}
+      >
+        <h3 class="plan-title">{plan.title}</h3>
+        <div class="price">
+          <span>{plan.price}</span>
+        </div>
+
+        <!-- Nota bajo el precio -->
+        <p class="price-note">Los precios varían de acuerdo al proyecto.</p>
+
+        <ul class="features-list">
+          {plan.features.map((feature) => (
+            <li>
+              <span class="check-icon">✓</span> {feature}
+            </li>
+          ))}
+        </ul>
+        <button class="cta-button">{plan.cta}</button>
+      </div>
+    ))}
+  </div>
+
+  <!-- RECUADRO PERSONALIZADO -->
+  <div class="custom-plan">
+    <div class="custom-plan-texts">
+      <h3>Personalizado</h3>
+      <p>Hablemos de tu idea para un plan a tu medida.</p>
+    </div>
+    <div class="custom-plan-button">
+      <button class="talk-button">Hablemos</button>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* SECCIÓN PRINCIPAL */
+  .pricing-section {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    min-height: 800px;
+  }
+
+  /* ENCABEZADO */
+  .pricing-header {
+    margin-bottom: 1rem;
+  }
+  .neon-title {
+    font-family: var(--font-primary, sans-serif);
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  .subtitle {
+    font-family: var(--font-primary, sans-serif);
+    font-size: 1rem;
+    color: #b3b3b3;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* GRID DE LOS 3 PLANES */
+  .pricing-grid {
+    display: flex;
+    flex-wrap: wrap; /* Para que se ajuste en pantallas pequeñas */
+    gap: 2rem;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  /* TARJETAS DE PRECIO */
+  .pricing-card {
+    background-color: #0c0d0d; /* Gris muy oscuro */
+    border: 1px solid #333;
+    border-radius: 12px;
+    width: 280px; /* Ajusta según tu gusto */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .pricing-card:hover {
+    border-color: #00e599;
+    transform: translateY(-5px);
+  }
+
+  /* Plan intermedio sin fondo, sólo borde neon */
+  .no-bg {
+    background-color: transparent;
+  }
+  /* Borde destacado en el plan intermedio */
+  .highlight-border {
+    border: 2px solid #00e599;
+  }
+
+  .plan-title {
+    font-family: var(--font-primary, sans-serif);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .price {
+    font-family: var(--font-primary, sans-serif);
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: #ffffff; /* Color “neon” */
+    margin-bottom: 0.5rem;
+  }
+
+  .price-note {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-bottom: 1rem;
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    text-align: left;
+    width: 100%;
+    max-width: 220px;
+  }
+  .features-list li {
+    margin: 0.75rem 0;
+    color: #ccc;
+    font-family: var(--font-primary, sans-serif);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Icono de “check” */
+  .check-icon {
+    color: #00e599;
+    margin-right: 0.5rem;
+  }
+
+  .cta-button {
+    background-color: #00e599;
+    color: #000;
+    border: none;
+    border-radius: 24px;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-family: var(--font-primary, sans-serif);
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .cta-button:hover {
+    background-color: #00cc7d;
+  }
+
+  /* RECUADRO PERSONALIZADO ABAJO */
+  .custom-plan {
+    background-color: #111;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    min-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .custom-plan h3 {
+    font-family: var(--font-primary, sans-serif);
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    text-align: left;
+  }
+  .custom-plan p {
+    text-align: left;
+    font-family: var(--font-primary, sans-serif);
+    color: #ccc;
+    font-size: 16px;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  .talk-button {
+    background-color: #00e599;
+    color: #000;
+    border: none;
+    border-radius: 24px;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-family: var(--font-primary, sans-serif);
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .talk-button:hover {
+    background-color: #00cc7d;
+  }
+
+  /* RESPONSIVO */
+  @media (max-width: 768px) {
+    .pricing-card {
+      width: 100%;
+      max-width: 300px;
+    }
+    .custom-plan {
+      width: 100%;
+      margin-top: 2rem;
+      display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+  }
+</style>

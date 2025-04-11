@@ -1,0 +1,29 @@
+:root {
+    --font-primary: 'Satoshi', sans-serif;
+    --font-extended: 'Chaney Extended', sans-serif;
+    /* Instrument Serif la cargaremos desde Google Fonts */
+    --font-secondary: 'Instrument Serif', sans-serif; 
+    --color-accent: #00E599;
+    --color-white: #fff;
+  }
+
+  .font-secondary-italic {
+    font-family: var(--font-secondary);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: #000;
+    color: #fff;
+    font-family: var(--font-primary);
+  }
+  
+
+  
