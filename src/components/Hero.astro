@@ -1,6 +1,4 @@
----
-// Si usas Frontmatter, puedes incluir variables u otros elementos aquí.
----
+<!-- hero-section.html -->
 <section class="hero-section">
   <div class="hero-content">
     <h1>
@@ -12,12 +10,9 @@
     <button>Agenda una llamada</button>
   </div>
   <div class="hero-images">
-    <!-- Collage de imágenes -->
     <div class="collage">
       <img src="/img/Img2.png" alt="Imagen 2" class="img-2" />
-      <!-- <img src="/img/Img5.png" alt="Imagen 5" class="img-5" /> -->
       <img src="/img/Img6.png" alt="Imagen 6" class="img-6" />
-      <img src="/img/Img2.png" alt="Imagen 2" class="img-2" />
       <img src="/img/Img4.png" alt="Imagen 4" class="img-4" />
     </div>
   </div>
@@ -26,109 +21,105 @@
 <style>
   :root {
     --font-primary: 'Satoshi', sans-serif;
-    --font-extended: 'Chaney Extended', sans-serif;
-    --font-secondary: 'Instrument Serif', sans-serif;
+    --font-secondary: 'Instrument Serif', serif;
     --color-accent: #00E599;
-    --color-white: #fff;
   }
 
-  /* Fuente secundaria */
-  .font-secondary {
-    font-family: var(--font-secondary);
+  body {
+    margin: 0;
   }
 
-  .hero-section {  
+  .hero-section {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    padding: clamp(2rem, 8vw, 8rem);
     min-height: 100vh;
-    padding: 4rem 8rem;
     animation: fadeInUp 0.8s ease-in-out;
   }
 
   .hero-content {
-    max-width: 50%;
+    flex: 1 1 400px;
+    max-width: 700px;
+    padding: 1rem;
     text-align: left;
-    padding: 0 2rem;
   }
 
   .hero-content h1 {
-    font-weight: 500;
     font-family: var(--font-primary);
-    font-size: 80px;
+    font-size: 4.7rem;
+    line-height: 1;
     margin-bottom: 1rem;
-    line-height: 1.1;
   }
 
   .hero-content p {
-    color: #999999;
     font-family: var(--font-primary);
-    font-size: 1.25rem;
+    font-size:  1.30rem;
+    color: #666;
     margin-bottom: 2rem;
   }
 
-  button {
+  .hero-content button {
     background-color: var(--color-accent);
     color: #000;
     border: none;
     padding: 1rem 2rem;
     font-family: var(--font-primary);
     font-weight: 600;
-    cursor: pointer;
     border-radius: 24px;
+    cursor: pointer;
     transition: background-color 0.3s ease;
   }
-
-  button:hover {
+  .hero-content button:hover {
     background-color: #00b584;
   }
 
   .hero-images {
-    max-width: 55%;
-    position: relative;
+    flex: 1 1 300px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+    padding: 1rem;
   }
 
   .collage {
     position: relative;
-    width: 500px;
-    height: 500px;
+    /* Mantiene aspecto cuadrado con fluid width */
+    width: clamp(250px, 40vw, 500px);
+    aspect-ratio: 1;
   }
 
   .collage img {
     position: absolute;
     object-fit: cover;
-    border-radius: 20px;
+    border-radius: 16px;
     transition: transform 0.3s ease;
   }
 
-  /* Posiciones y rotaciones para el collage */
+  /* Imagen principal superior */
   .img-2 {
-    width: 500px;
-    height: 400px;
-    top: 0;
-    left: 20px;
-    transform: rotate(8deg);
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.5);
+    width: 80%;
+    top: 2rem;
+    left: 5%;
+    transform: rotate(6deg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
-
-  .img-4 {
-    width: 300px;
-    height: 600px;
-    bottom: 0;
-    right: 200px;
-    transform: rotate(-8deg);
-    filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.5));
-  }
-
+  /* Imagen inferior izquierda */
   .img-6 {
-    width: 500px;
-    height: 400px;
-    bottom: 10%;
-    transform: translateX(-50%) rotate(-3deg);
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.5);
+    width: 55%;
+    bottom: 5%;
+    left: 20%;
+    transform: rotate(-3deg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  /* Imagen lateral derecha */
+  .img-4 {
+    width: 60%;
+    bottom: 0;
+    right: 60%;
+    transform: rotate(-8deg);
+    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.2));
   }
 
   @keyframes fadeInUp {
@@ -142,54 +133,80 @@
     }
   }
 
-  /* Estilos responsivos para pantallas pequeñas */
+  /* Punto de quiebre para pantallas medianas (laptop/tablet) */
+  @media (max-width: 1024px) {
+    .hero-content h1 {
+      font-size: 3.5rem;
+    }
+    .hero-content p {
+      font-size: 1.1rem;
+    }
+    .collage {
+      width: clamp(200px, 50vw, 400px);
+    }
+    .img-2 { width: 65%; }
+    .img-6 { width: 60%; }
+    .img-4 { width: 40%; }
+  }
+
+  @media (min-width: 1600px) {
+  /* Imagen principal superior */
+  .img-2 {
+    width: 90%;
+    bottom: 10%;
+    left: 5%;
+    transform: rotate(6deg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  /* Imagen inferior izquierda */
+  .img-6 {
+    width: 75%;
+    top: 45%;
+    left: 20%;
+    transform: rotate(-3deg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  /* Imagen lateral derecha */
+  .img-4 {
+    width: 80%;
+    top: 1%;
+    right: 70%;
+    transform: rotate(-8deg);
+    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.2));
+  }
+  }
+
+  /* Móvil: apilar contenido y simplificar collage */
   @media (max-width: 768px) {
     .hero-section {
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
       padding: 2rem 1rem;
       min-height: auto;
     }
-
     .hero-content {
-      max-width: 100%;
       text-align: center;
-      padding: 0 1rem;
-      margin-bottom: 2rem;
+      margin-top: 4rem;
     }
-
     .hero-images {
-      max-width: 100%;
       margin-bottom: 2rem;
     }
-
     .collage {
+      width: 80%;
+      aspect-ratio: auto;
+      height: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1rem;
+      position: static;
+    }
+    .collage img {
+      position: static;
       width: 100%;
       height: auto;
-      position: relative;
-    }
-
-    .collage img {
-      max-width: 70%;
-      height: auto;
-    }
-
-    /* Reducir transformaciones para evitar sobresalir */
-    .img-2 {
-      transform: rotate(4deg);
-      top: 0;
-      left: 0;
-    }
-    .img-4 {
-      transform: rotate(-4deg);
-      bottom: 0;
-      right: 0;
-    }
-    .img-6 {
-      transform: rotate(-2deg);
-      bottom: 20%;
-      left: 15%;
+      transform: none !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      filter: none !important;
     }
   }
 </style>

@@ -1,4 +1,5 @@
 ---
+// Sin frontmatter adicional necesario para este componente
 ---
 
 <nav class="header-container">
@@ -6,126 +7,179 @@
     <!-- LOGO / MARCA -->
     <a href="/" class="logo">DevEc</a>
 
-    <!-- ENLACES DE NAVEGACIÓN -->
+    <!-- BOTÓN HAMBURGUESA (solo en móvil) -->
+    <button class="menu-toggle" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- ENLACES DE NAVEGACIÓN CON BOTÓN ADENTRO -->
     <ul class="nav-links">
       <li><a href="#como-funciona">¿Cómo Funcionamos?</a></li>
       <li><a href="#servicios">Servicios</a></li>
       <li><a href="#precios">Precio</a></li>
       <li><a href="#faqs">FAQs</a></li>
+      <!-- Botón dentro del menú hamburguesa -->
+      <li class="nav-action">
+        <button class="header-button">Cuéntanos tu proyecto</button>
+      </li>
     </ul>
 
-    <!-- BOTÓN -->
-    <button class="header-button">Cuéntanos tu proyecto</button>
+    <!-- BOTÓN DE ACCIÓN VISIBLE EN DESKTOP -->
+    <button class="header-button desktop-only">Cuéntanos tu proyecto</button>
   </div>
 </nav>
 
 <style>
-  /* Contenedor principal con efecto “glass” */
-  .header-container {
-    /* Para que “flote” y siga al usuario al hacer scroll */
-    position: fixed;
-    top: 1rem;               /* Separación desde arriba */
-    left: 50%;              /* Centrado horizontal */
-    transform: translateX(-50%);
-    width: 80%;             /* Ocupa el 80% del ancho de la pantalla */
-    z-index: 9999;          /* Asegura que quede sobre otros elementos */
-
-    /* Efecto vidrio */
-    background-color: rgba(13, 13, 13, 0.5); /* Fondo semitransparente */
-    backdrop-filter: blur(10px);            /* Desenfoque */
-    -webkit-backdrop-filter: blur(10px);    /* Soporte Safari */
-
-    /* Bordes y borde redondeado */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-
-    /* Opcional: Pequeña animación de aparición */
-    animation: fadeInDown 0.8s ease-in-out;
+  :root {
+    --font-primary: 'Satoshi', sans-serif;
+    --font-extended: 'Chaney Extended', sans-serif;
+    --color-accent: #00E599;
+    --color-white: #fff;
   }
 
+  
+  .header-container {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    z-index: 9999;
+    background-color: rgba(13, 13, 13, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    animation: fadeInDown 0.8s ease-in-out;
+  }
   .header-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 95%;         /* Ajusta el espacio interno */
-    margin: 0 auto;     /* Centra el contenido dentro del nav */
-    padding: 0.75rem 0; /* Espacio vertical */
+    width: 95%;
+    margin: 0 auto;
+    padding: 0.75rem 0;
+    position: relative;
+    overflow: visible;
   }
-
-  /* LOGO */
   .logo {
-    font-family: var(--font-extended, sans-serif);
+    font-family: var(--font-extended);
     font-size: 1.5rem;
-    color: #fff; /* Blanco para contraste sobre fondo oscuro */
+    color: var(--color-white);
     text-decoration: none;
   }
-
-  /* Lista de navegación */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .menu-toggle span {
+    display: block;
+    height: 3px;
+    border-radius: 2px;
+    background-color: var(--color-white);
+    transition: transform 0.3s, opacity 0.3s;
+  }
   .nav-links {
     list-style: none;
     display: flex;
     gap: 2rem;
     margin: 0;
     padding: 0;
+    align-items: center;
   }
-
   .nav-links a {
-    color: #fff;
+    color: var(--color-white);
     text-decoration: none;
-    font-family: var(--font-primary, sans-serif);
+    font-family: var(--font-primary);
     font-weight: 500;
     transition: color 0.3s ease;
   }
-
   .nav-links a:hover {
-    color: var(--color-accent, #00E599); /* Ejemplo: cambia al color de acento */
+    color: var(--color-accent);
   }
-
-  /* Botón a la derecha */
+  .nav-action {
+    display: none; /* se muestra solo en móvil */
+  }
   .header-button {
-    background-color: var(--color-accent, #00E599);
-    color: #000000;
+    background-color: var(--color-accent);
+    color: #000;
     border: none;
     border-radius: 24px;
     padding: 0.75rem 1.5rem;
-    font-family: var(--font-primary, sans-serif);
+    font-family: var(--font-primary);
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
   .header-button:hover {
-    background-color: #fff;
-    color: var(--color-accent, #00E599);
+    background-color: var(--color-white);
+    color: var(--color-accent);
   }
-
-  /* Animación de entrada (opcional) */
+  .desktop-only {
+    display: inline-block;
+  }
   @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-
-  /* Responsividad */
   @media (max-width: 768px) {
-    .header-content {
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center; /* Centra los items en pantallas pequeñas */
+    .menu-toggle {
+      display: flex;
     }
-
+    .desktop-only {
+      display: none;
+    }
+    /* Menú oculto por defecto y animado en apertura */
     .nav-links {
-      flex: 1 1 100%;
-      justify-content: center;
-      order: 2; /* Para que queden debajo del logo si deseas */
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: black;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-radius: 0 0 12px 12px;
+      max-height: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: max-height 1s ease, opacity 0.4s ease;
+      overflow: hidden;
     }
-
-    .header-button {
-      order: 3; /* Botón debajo de la navegación en móviles */
+    .nav-links.active {
+      max-height: 500px;
+      opacity: 1;
+      visibility: visible;
+    }
+    .nav-action {
+      display: block;
+    }
+    .menu-toggle.active span:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg);
+    }
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg);
     }
   }
 </style>
+
+<script type="module" is:client>
+  const toggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.nav-links');
+
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('active');
+    nav.classList.toggle('active');
+  });
+</script>
