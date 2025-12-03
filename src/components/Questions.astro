@@ -22,33 +22,35 @@ const faqs = [
   },
 ];
 ---
+
 <section class="faq-section" id="faqs">
   <div class="faq-container">
     <!-- COLUMNA IZQUIERDA -->
     <div class="faq-left">
       <h2>¿Tienes preguntas?</h2>
       <p>
-        No te preocupes. Si tienes alguna duda o pregunta,  
-        nuestras FAQs pueden ayudarte, o bien puedes ponerte  
-        en contacto con nosotros directamente.
+        No te preocupes. Si tienes alguna duda o pregunta, nuestras FAQs pueden
+        ayudarte, o bien puedes ponerte en contacto con nosotros directamente.
       </p>
     </div>
 
     <!-- COLUMNA DERECHA: LISTADO DE PREGUNTAS -->
     <div class="faq-right">
-      {faqs.map((item, index) => (
-        <div class="faq-item" data-index={index}>
-          <div class="faq-question">
-            <h3>{item.question}</h3>
-            <button class="faq-toggle">
-              <span class="plus-icon">+</span>
-            </button>
+      {
+        faqs.map((item, index) => (
+          <div class="faq-item" data-index={index}>
+            <div class="faq-question">
+              <h3>{item.question}</h3>
+              <button class="faq-toggle">
+                <span class="plus-icon">+</span>
+              </button>
+            </div>
+            <div class="faq-answer">
+              <p>{item.answer}</p>
+            </div>
           </div>
-          <div class="faq-answer">
-            <p>{item.answer}</p>
-          </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 
@@ -99,6 +101,8 @@ const faqs = [
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 3rem;
+    z-index: 999;
+    position: relative;
   }
 
   /* COLUMNA IZQUIERDA: Título y texto */
@@ -158,7 +162,7 @@ const faqs = [
     transition: color 0.3s ease;
   }
   .faq-toggle:hover {
-    color: var(--color-accent, #073B3A);
+    color: var(--color-accent, #073b3a);
   }
 
   .plus-icon {
@@ -181,8 +185,8 @@ const faqs = [
     }
 
     .faq-container {
-    width: 90%;
-  }
+      width: 90%;
+    }
 
     .faq-left {
       margin-bottom: 2rem;
@@ -190,11 +194,11 @@ const faqs = [
     }
 
     .faq-question h3 {
-    font-family: var(--font-primary, sans-serif);
-    font-size: 1.1rem;
-    font-weight: 500;
-    margin: 0;
-  }
+      font-family: var(--font-primary, sans-serif);
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 0;
+    }
 
     .faq-left h2 {
       font-size: 3rem;

@@ -1,4 +1,3 @@
-<!-- hero-section.html -->
 <section class="hero-section">
   <div class="hero-content">
     <h1>
@@ -9,12 +8,13 @@
     </p>
     <button>Agenda una llamada</button>
   </div>
+
   <div class="hero-images">
-    <div class="collage">
-      <img src="/img/Img2.png" alt="Imagen 2" class="img-2" />
-      <img src="/img/Img6.png" alt="Imagen 6" class="img-6" />
-      <img src="/img/Img4.png" alt="Imagen 4" class="img-4" />
-    </div>
+    <img
+      src="/img/hero-collage-combined.png"
+      alt="Devec showcase de proyectos y servicios"
+      class="hero-single-image"
+    />
   </div>
 </section>
 
@@ -27,186 +27,150 @@
 
   body {
     margin: 0;
+    overflow-x: hidden; /* Previene scroll horizontal no deseado */
   }
 
   .hero-section {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
+    /* Usamos gap para separar el texto de la imagen */
+    gap: 2rem;
     padding: clamp(2rem, 8vw, 8rem);
-    min-height: 100vh;
-    animation: fadeInUp 0.8s ease-in-out;
+    min-height: 90vh; /* Un poco menos de 100vh a veces se ve mejor */
+    box-sizing: border-box;
+    z-index: 999;
+    position: relative
+
   }
 
+  /* --- CONTENIDO DE TEXTO (IZQUIERDA) --- */
   .hero-content {
-    flex: 1 1 400px;
-    max-width: 700px;
-    padding: 1rem;
-    text-align: left;
+    flex: 1 1 400px; /* Crece y se encoge, base de 400px */
+    max-width: 800px;
+    animation: fadeInUp 0.8s ease-in-out;
   }
 
   .hero-content h1 {
     font-family: var(--font-primary);
-    font-size: 4.7rem;
-    line-height: 1;
-    margin-bottom: 1rem;
+    /* Tipografía fluida: se adapta suavemente entre 3rem y 4.7rem */
+    font-size: clamp(3rem, 6vw, 4.7rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: white;
+  }
+
+  .font-secondary-italic {
+    font-family: var(--font-secondary);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-accent); /* Un toque de color al "realidad" */
   }
 
   .hero-content p {
     font-family: var(--font-primary);
-    font-size:  1.30rem;
-    color: #666;
-    margin-bottom: 2rem;
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    color: #a0a0a0; /* Un gris más suave para fondo oscuro */
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    max-width: 90%;
   }
 
   .hero-content button {
     background-color: var(--color-accent);
     color: #000;
     border: none;
-    padding: 1rem 2rem;
+    padding: 1rem 2.5rem;
     font-family: var(--font-primary);
-    font-weight: 600;
-    border-radius: 24px;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 100px; /* Botón completamente redondeado */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
   }
+
   .hero-content button:hover {
     background-color: #00b584;
+    transform: translateY(-3px); /* Pequeño efecto de elevación */
+    box-shadow: 0 10px 20px -10px rgba(0, 229, 153, 0.5);
   }
 
+  /* --- SECCIÓN DE LA IMAGEN ÚNICA (DERECHA) --- */
   .hero-images {
-    flex: 1 1 300px;
+    flex: 1 400px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-end; /* Alinea la imagen a la derecha en desktop */
     align-items: center;
-    padding: 1rem;
+    animation: fadeInRight 1s ease-out;
   }
 
-  .collage {
-    position: relative;
-    /* Mantiene aspecto cuadrado con fluid width */
-    width: clamp(250px, 40vw, 500px);
-    aspect-ratio: 1;
+  /* Estilos para la nueva imagen única */
+  .hero-single-image {
+    width: 100%; /* Ocupa el ancho disponible de su contenedor */
+    height: auto; /* Mantiene la proporción siempre */
+    max-width: 650px; /* Evita que se haga gigantesca en pantallas muy anchas */
+    object-fit: contain;
+    /* Opcional: un sutil efecto hover */
+    transition: transform 0.5s ease;
   }
 
-  .collage img {
-    position: absolute;
-    object-fit: cover;
-    border-radius: 16px;
-    transition: transform 0.3s ease;
+  .hero-single-image:hover {
+      transform: scale(1.02); /* Un "respiro" muy sutil al pasar el mouse */
   }
 
-  /* Imagen principal superior */
-  .img-2 {
-    width: 80%;
-    top: 2rem;
-    left: 5%;
-    transform: rotate(6deg);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  }
-  /* Imagen inferior izquierda */
-  .img-6 {
-    width: 55%;
-    bottom: 5%;
-    left: 20%;
-    transform: rotate(-3deg);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  }
-  /* Imagen lateral derecha */
-  .img-4 {
-    width: 60%;
-    bottom: 0;
-    right: 60%;
-    transform: rotate(-8deg);
-    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.2));
-  }
 
+  /* --- ANIMACIONES --- */
   @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Punto de quiebre para pantallas medianas (laptop/tablet) */
+  @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+  }
+
+
+  /* --- RESPONSIVE: TABLET (Hasta 1024px) --- */
   @media (max-width: 1024px) {
+    .hero-section {
+      padding: 4rem 2rem;
+      min-height: auto; /* Ya no forzamos la altura completa */
+    }
     .hero-content h1 {
-      font-size: 3.5rem;
+      font-size: 3.5rem; /* Ajuste manual si clamp no es suficiente */
     }
-    .hero-content p {
-      font-size: 1.1rem;
-    }
-    .collage {
-      width: clamp(200px, 50vw, 400px);
-    }
-    .img-2 { width: 65%; }
-    .img-6 { width: 60%; }
-    .img-4 { width: 40%; }
   }
 
-  @media (min-width: 1600px) {
-  /* Imagen principal superior */
-  .img-2 {
-    width: 90%;
-    bottom: 10%;
-    left: 5%;
-    transform: rotate(6deg);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  }
-  /* Imagen inferior izquierda */
-  .img-6 {
-    width: 75%;
-    top: 45%;
-    left: 20%;
-    transform: rotate(-3deg);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  }
-  /* Imagen lateral derecha */
-  .img-4 {
-    width: 80%;
-    top: 1%;
-    right: 70%;
-    transform: rotate(-8deg);
-    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.2));
-  }
-  }
 
-  /* Móvil: apilar contenido y simplificar collage */
+  /* --- RESPONSIVE: MÓVIL (Hasta 768px) --- */
   @media (max-width: 768px) {
     .hero-section {
-      flex-direction: column;
-      padding: 2rem 1rem;
-      min-height: auto;
-    }
-    .hero-content {
+      flex-direction: column; /* IMPORTANTE: Ponemos la imagen arriba del texto en móvil */
+      padding: 6rem 1.5rem 3rem 1.5rem; /* Padding superior para tu navbar */
       text-align: center;
-      margin-top: 4rem;
+      gap: 0rem;
     }
-    .hero-images {
-      margin-bottom: 2rem;
-    }
-    .collage {
-      width: 80%;
-      aspect-ratio: auto;
-      height: auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 1rem;
-      position: static;
-    }
-    .collage img {
-      position: static;
+
+    .hero-content {
+      padding: 0;
       width: 100%;
-      height: auto;
-      transform: none !important;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      filter: none !important;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Centramos textos y botón */
+    }
+
+    .hero-content p {
+        max-width: 100%;
+    }
+
+    .hero-images {
+      justify-content: center; /* Centramos la imagen horizontalmente */
+      width: 100%;
+    }
+
+    .hero-single-image {
+      max-width: 100%; /* En móvil, que no toque los bordes exactos */
     }
   }
 </style>
