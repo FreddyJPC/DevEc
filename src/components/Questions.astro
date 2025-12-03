@@ -2,206 +2,327 @@
 const faqs = [
   {
     question: "¿Qué habilidades tienen nuestros profesionales?",
-    answer:
-      "Nuestro equipo está compuesto por profesionales altamente capacitados, cada uno con años de experiencia en el sector. Dominan tecnologías de vanguardia, lenguajes de programación y metodologías ágiles para ofrecer soluciones de gran calidad.",
+    answer: "Nuestro equipo está compuesto por profesionales altamente capacitados, dominando tecnologías como React, Astro, Node.js y Python. Utilizamos metodologías ágiles (Scrum) para garantizar entregas puntuales y código limpio.",
   },
   {
     question: "¿Cuáles son los requisitos para trabajar con nosotros?",
-    answer:
-      "Para colaborar con nosotros, sólo necesitas contar con un proyecto claro o una idea. Nosotros te asesoramos para aterrizar tu visión y planificar la mejor estrategia de desarrollo.",
+    answer: "Solo necesitas una idea o una necesidad. Nosotros nos encargamos de la toma de requerimientos, diseño de prototipos y la planificación técnica. No necesitas conocimientos técnicos previos.",
   },
   {
     question: "¿Cuál es el precio de nuestros servicios?",
-    answer:
-      "Nuestros precios varían según la complejidad y alcance del proyecto. Ofrecemos planes flexibles y presupuestos personalizados para cada cliente.",
+    answer: "Cada proyecto es único. Ofrecemos desde planes básicos para landing pages hasta desarrollos a medida complejos. Contáctanos para una cotización gratuita adaptada a tu presupuesto.",
   },
   {
-    question: "¿Qué pasa si no me gusta el diseño que se entrega?",
-    answer:
-      "Trabajamos con un proceso iterativo que incluye revisiones y feedback continuo. Si algo no te convence, lo ajustamos hasta que quedes totalmente satisfecho.",
+    question: "¿Qué pasa si no me gusta el diseño?",
+    answer: "Tu satisfacción es prioridad. Trabajamos con entregas progresivas y revisiones ilimitadas durante la fase de diseño hasta que el resultado visual sea exactamente lo que esperabas.",
   },
+  {
+    question: "¿Ofrecen soporte post-lanzamiento?",
+    answer: "Sí, todos nuestros desarrollos incluyen un periodo de garantía gratuito. Además, ofrecemos planes de mantenimiento mensual para actualizaciones y seguridad.",
+  }
 ];
 ---
 
 <section class="faq-section" id="faqs">
   <div class="faq-container">
-    <!-- COLUMNA IZQUIERDA -->
-    <div class="faq-left">
-      <h2>¿Tienes preguntas?</h2>
-      <p>
-        No te preocupes. Si tienes alguna duda o pregunta, nuestras FAQs pueden
-        ayudarte, o bien puedes ponerte en contacto con nosotros directamente.
-      </p>
+    
+    <div class="faq-left reveal-text">
+      <div class="sticky-wrapper">
+        <span class="badge">Dudas Comunes</span>
+        <h2>Resolvemos tus<br> inquietudes.</h2>
+        <p>
+          Si no encuentras la respuesta que buscas, nuestro equipo de soporte está listo para ayudarte en tiempo real.
+        </p>
+        <button class="talk-button">Contactar Soporte</button>
+      </div>
     </div>
 
-    <!-- COLUMNA DERECHA: LISTADO DE PREGUNTAS -->
     <div class="faq-right">
-      {
-        faqs.map((item, index) => (
-          <div class="faq-item" data-index={index}>
-            <div class="faq-question">
-              <h3>{item.question}</h3>
-              <button class="faq-toggle">
-                <span class="plus-icon">+</span>
-              </button>
+      {faqs.map((item, index) => (
+        <div class="faq-item reveal-card" style={`--delay: ${index * 100}ms`}>
+          <button class="faq-trigger" aria-expanded="false">
+            <h3>{item.question}</h3>
+            <div class="icon-container">
+              <span class="line vertical"></span>
+              <span class="line horizontal"></span>
             </div>
-            <div class="faq-answer">
+          </button>
+          
+          <div class="faq-answer">
+            <div class="answer-content">
               <p>{item.answer}</p>
             </div>
           </div>
-        ))
-      }
+        </div>
+      ))}
     </div>
+
   </div>
-
-  <!-- SCRIPT para abrir/cerrar respuestas con Vanilla JS -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const faqItems = document.querySelectorAll(".faq-item");
-
-      faqItems.forEach((faq) => {
-        const toggleBtn = faq.querySelector(".faq-toggle");
-        const answer = faq.querySelector(".faq-answer");
-        const icon = faq.querySelector(".plus-icon");
-
-        // Por defecto, ocultamos la respuesta
-        answer.style.display = "none";
-
-        // Al hacer clic en el botón (icono "+"), abrimos/cerramos la respuesta
-        toggleBtn.addEventListener("click", () => {
-          if (answer.style.display === "none") {
-            answer.style.display = "block";
-            icon.textContent = "–"; // Cambiamos el símbolo a "–"
-          } else {
-            answer.style.display = "none";
-            icon.textContent = "+"; // Regresamos a "+"
-          }
-        });
-      });
-    });
-  </script>
 </section>
 
 <style>
-  /* Sección de FAQ con fondo oscuro y texto claro */
-  .faq-section {
-    background-color: #000; /* o #0d0d0d, según tu preferencia */
-    color: #fff;
-    padding: 4rem 2rem;
-    min-height: 700px; /* Ajusta según tus gustos */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  :root {
+    --color-accent: #00E599;
+    --font-primary: 'Satoshi', sans-serif;
   }
 
-  /* Contenedor principal en 2 columnas */
+  /* Sección General */
+  .faq-section {
+    color: #fff;
+    padding: 6rem 1rem;
+    min-height: 700px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 999;
+  }
+
   .faq-container {
     max-width: 1200px;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 3rem;
-    z-index: 999;
-    position: relative;
+    grid-template-columns: 1fr 1.5fr; /* Izquierda más pequeña, derecha más ancha */
+    gap: 4rem;
   }
 
-  /* COLUMNA IZQUIERDA: Título y texto */
+  /* --- COLUMNA IZQUIERDA (Sticky) --- */
   .faq-left {
+    position: relative;
+    /* Animación de entrada */
+    opacity: 0; 
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+  }
+  
+  .faq-left.active { opacity: 1; transform: translateY(0); }
+
+  /* Truco para que el texto se quede pegado al hacer scroll */
+  .sticky-wrapper {
+    position: sticky;
+    top: 2rem; /* Margen desde arriba */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: flex-start;
   }
 
-  .faq-left h2 {
-    font-family: var(--font-primary, sans-serif);
-    font-size: 3.5rem;
+  .badge {
+    color: var(--color-accent);
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     margin-bottom: 1rem;
   }
 
-  .faq-left p {
-    font-family: var(--font-primary, serif);
-    line-height: 1.6;
-    color: #999999;
+  .faq-left h2 {
+    font-family: var(--font-primary);
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: #fff;
   }
 
-  /* COLUMNA DERECHA: Lista de preguntas */
+  .faq-left p {
+    font-family: var(--font-primary);
+    line-height: 1.6;
+    color: #a1a1aa;
+    margin-bottom: 2rem;
+    max-width: 400px;
+  }
+
+  /* --- COLUMNA DERECHA (ACORDEÓN) --- */
   .faq-right {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 1rem;
   }
 
-  /* Cada pregunta y respuesta */
   .faq-item {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 2rem 0;
+    background-color: #0c0d0d;
+    border: 1px solid #27272a;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    
+    /* Animación de entrada scroll */
+    opacity: 0;
+    transform: translateY(20px);
+    transition-delay: var(--delay);
+  }
+  
+  .faq-item.active-reveal { opacity: 1; transform: translateY(0); }
+
+  /* Estado activo (abierto) */
+  .faq-item.open {
+    border-color: var(--color-accent);
+    box-shadow: 0 4px 20px rgba(0, 229, 153, 0.05);
   }
 
-  /* Cabecera de la pregunta con icono de +/– */
-  .faq-question {
+  /* Botón disparador (Header) */
+  .faq-trigger {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    cursor: default; /* El clic se hará solo en el botón */
-  }
-
-  .faq-question h3 {
-    font-family: var(--font-primary, sans-serif);
-    font-size: 1.2rem;
-    font-weight: 500;
-    margin: 0;
-  }
-
-  /* Botón que contiene el icono +/– */
-  .faq-toggle {
+    padding: 1.5rem;
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--color-white, #fff);
-    font-size: 1.5rem;
+    text-align: left;
+    color: #fff;
+  }
+
+  .faq-trigger h3 {
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+    padding-right: 1rem;
     transition: color 0.3s ease;
   }
-  .faq-toggle:hover {
-    color: var(--color-accent, #073b3a);
+
+  .faq-item.open h3 {
+    color: var(--color-accent);
   }
 
-  .plus-icon {
-    display: inline-block;
-    font-weight: bold;
+  /* --- ICONO ANIMADO (+ a X) --- */
+  .icon-container {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    min-width: 16px; /* Evita que se aplaste */
   }
 
-  /* Respuesta inicialmente oculta */
+  .line {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .faq-item.open .line { background-color: var(--color-accent); }
+
+  .horizontal {
+    width: 100%;
+    height: 2px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  .vertical {
+    width: 2px;
+    height: 100%;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+  }
+
+  /* Rotación mágica */
+  .faq-item.open .icon-container {
+    transform: rotate(45deg); /* Rota todo el contenedor 45 grados */
+  }
+  /* Alternativa: rotar las líneas individualmente si prefieres X recta */
+  /* Pero rotar 45deg el + crea una X perfecta */
+
+  /* --- RESPUESTA (Animación de altura) --- */
   .faq-answer {
-    margin-top: 0.5rem;
-    line-height: 1.6;
-    font-size: 0.95rem;
-    color: #999999;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Responsividad para pantallas pequeñas */
-  @media (max-width: 768px) {
-    .faq-container {
-      grid-template-columns: 1fr; /* Una sola columna */
-    }
+  .answer-content {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+  }
 
+  .faq-answer p {
+    color: #d4d4d8;
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .talk-button {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #3f3f46;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    transition: 0.3s;
+  }
+  .talk-button:hover {
+    border-color: #fff;
+    background-color: #fff;
+    color: #000;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 850px) {
     .faq-container {
-      width: 90%;
+      grid-template-columns: 1fr;
+      gap: 3rem;
     }
 
     .faq-left {
-      margin-bottom: 2rem;
       text-align: center;
     }
-
-    .faq-question h3 {
-      font-family: var(--font-primary, sans-serif);
-      font-size: 1.1rem;
-      font-weight: 500;
-      margin: 0;
+    
+    .sticky-wrapper {
+      position: static; /* Quitamos sticky en móvil */
+      align-items: center;
     }
-
-    .faq-left h2 {
-      font-size: 3rem;
+    
+    .faq-item {
+      opacity: 1; /* Sin animación compleja en móvil para mejor performance */
+      transform: none;
     }
   }
 </style>
+
+<script type="module" is:client>
+  // 1. Lógica del Acordeón
+  const faqItems = document.querySelectorAll('.faq-item');
+
+  faqItems.forEach(item => {
+    const trigger = item.querySelector('.faq-trigger');
+    const answer = item.querySelector('.faq-answer');
+
+    trigger.addEventListener('click', () => {
+      // Opcional: Cerrar otros items abiertos (Acordeón estricto)
+      // faqItems.forEach(otherItem => {
+      //   if (otherItem !== item && otherItem.classList.contains('open')) {
+      //     otherItem.classList.remove('open');
+      //     otherItem.querySelector('.faq-answer').style.maxHeight = null;
+      //   }
+      // });
+
+      // Toggle del item actual
+      item.classList.toggle('open');
+      
+      if (item.classList.contains('open')) {
+        // La magia: calculamos la altura real del contenido
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      } else {
+        answer.style.maxHeight = null;
+      }
+    });
+  });
+
+  // 2. Lógica de Scroll Reveal (Reutilizada)
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        if(entry.target.classList.contains('reveal-text')) entry.target.classList.add('active');
+        if(entry.target.classList.contains('reveal-card')) entry.target.classList.add('active-reveal');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal-text, .reveal-card').forEach(el => observer.observe(el));
+</script>

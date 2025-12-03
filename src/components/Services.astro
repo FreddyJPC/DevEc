@@ -2,10 +2,10 @@
 const services = [
   {
     title: "Diseño y Desarrollo Web",
-    description: "Sitios modernos, responsivos y optimizados para ofrecer una experiencia ",
+    description: "Sitios modernos, responsivos y optimizados.",
   },
   {
-    title: "Desarrollo de Ecommerce en Shopify",
+    title: "Desarrollo de Ecommerce",
     description: "Impulsa tu negocio online con tiendas Shopify personalizadas, seguras y fáciles de usar.",
   },
   {
@@ -14,35 +14,41 @@ const services = [
   },
   {
     title: "Aplicaciones Web a Medida",
-    description: "Soluciones personalizadas adaptadas a las necesidades de tu empresa.",
+    description: "Soluciones personalizadas ",
   },
   {
-    title: "Chatbots con IA para Redes Sociales",
-    description: "Automatiza y mejora la atención al cliente en tus redes sociales.",
+    title: "Chatbots con IA",
+    description: "Automatiza y mejora la atención al cliente en tus redes sociales 24/7.",
   },
 ];
 ---
 
 <section class="services-section" id="servicios">
   <div class="container">
-    <!-- COLUMNA IZQUIERDA: Título, texto y botón -->
-    <div class="left-content">
-      <h2>Servicios</h2>
-      <p>
-        Descubre nuestros servicios diseñados para llevar tu negocio al siguiente nivel.
-      </p>
-      <button class="talk-button">Contáctanos</button>
+    
+    <div class="left-content reveal-text">
+      <div class="content-wrapper">
+        <span class="badge">Nuestros Servicios</span>
+        <h2>Soluciones digitales<br> <span class="text-accent">a tu medida.</span></h2>
+        <p>
+          Descubre cómo podemos llevar tu negocio al siguiente nivel con tecnología de punta y diseño estratégico.
+        </p>
+        <button class="talk-button">Contáctanos</button>
+      </div>
     </div>
 
-    <!-- COLUMNA DERECHA: Tarjetas de servicio -->
     <div class="right-content">
       <div class="services-grid">
         {services.map((service, i) => (
-          <div
-            class={`service-card ${i === 0 ? "accent-card" : ""} ${i === 1 ? "angled-card" : ""}`}
+          <div 
+            class={`service-card reveal-card ${i === 0 ? "accent-card" : ""}`}
+            style={`--delay: ${i * 100}ms`} 
           >
-            <h3>{service.title}</h3>
-            <p>{service.description}</p>
+            <div class="card-content">
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+            </div>
+            <div class="card-icon">↗</div>
           </div>
         ))}
       </div>
@@ -51,134 +57,269 @@ const services = [
 </section>
 
 <style>
-  .services-section {
-    padding: clamp(2rem, 5vw, 4rem) 1rem;
-    z-index: 10;
-    position: relative
+  :root {
+    --color-accent: #00E599;
+    --font-primary: 'Satoshi', sans-serif;
   }
+
+  .services-section {
+    padding: clamp(3rem, 5vw, 6rem) 1rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 999;
+  }
+
   .container {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 2rem;
+    grid-template-columns: 1fr 1.8fr; /* Ajuste de proporción */
+    gap: 4rem;
     align-items: center;
   }
+
+  /* --- COLUMNA IZQUIERDA --- */
   .left-content {
     display: flex;
     flex-direction: column;
+    /* Estado inicial invisible */
+    opacity: 0; 
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
   }
-  .left-content h2 {
-    font-size: 3rem;
+  
+  .left-content.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .badge {
+    display: inline-block;
+    color: var(--color-accent);
     font-family: var(--font-primary);
-    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     margin-bottom: 1rem;
   }
+
+  .left-content h2 {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-family: var(--font-primary);
+    color: #fff;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+  }
+
+  .text-accent {
+    color: var(--color-accent);
+  }
+
   .left-content p {
     font-family: var(--font-primary);
-    color: #ccc;
-    margin-bottom: 2rem;
-    line-height: 1.5;
+    color: #a1a1aa; /* Gris más suave */
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    max-width: 400px;
   }
+
+  /* Botón mejorado */
   .talk-button {
-    background-color: var(--color-accent);
-    color: #000;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 1rem 2rem;
+    border-radius: 50px;
     cursor: pointer;
     font-family: var(--font-primary);
     font-weight: 600;
     font-size: 1rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    width: fit-content;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
   }
-  /* Hover unificado para todos los botones */
-  .talk-button:hover,
-  .header-button:hover {
-    background-color: #fff;
-    color: #00E599;
+
+  .talk-button:hover {
+    background-color: var(--color-accent);
+    color: #000;
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 229, 153, 0.2);
   }
-  .right-content {
-    width: 100%;
-  }
+
+  /* --- GRID BENTO (DERECHA) --- */
   .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 200px;
-    gap: 1rem;
+    grid-template-rows: repeat(2, 220px); /* Altura fija para consistencia */
+    gap: 1.25rem;
   }
+
+  /* --- TARJETAS --- */
   .service-card {
-    background-color: #0c0d0d;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: #121212;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.75rem;
     color: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    justify-content: space-between;
+    position: relative;
+    cursor: default;
+    
+    /* Animación Base */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 
+      opacity 0.6s ease,
+      transform 0.6s ease,
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+    transition-delay: var(--delay); /* Retraso en cascada */
   }
+
+  /* Estado Visible (Activado por JS) */
+  .service-card.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Hover Card */
   .service-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+    background-color: #1a1a1a;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
-  .service-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    font-family: var(--font-primary);
+  
+  .service-card:hover .card-icon {
+    color: var(--color-accent);
+    transform: rotate(45deg);
   }
-  .service-card p {
-    font-size: 0.875rem;
-    line-height: 1.4;
-    font-family: var(--font-primary);
-  }
+
+  /* Tarjeta Acentuada (Verde) */
   .accent-card {
     background-color: var(--color-accent);
     color: #000;
+    border: none;
+  }
+  
+  .accent-card:hover {
+    background-color: #00c985;
+    transform: translateY(-5px);
   }
 
-  @media (min-width: 901px) {
-    .service-card:nth-child(1) { grid-column: 1 / 2; grid-row: 1 / 2; }
-    .service-card:nth-child(2) { grid-column: 2 / 4; grid-row: 1 / 2; }
-    .service-card:nth-child(3) { grid-column: 1 / 2; grid-row: 2 / 3; }
-    .service-card:nth-child(4) { grid-column: 2 / 3; grid-row: 2 / 3; }
-    .service-card:nth-child(5) { grid-column: 3 / 4; grid-row: 2 / 3; }
+  .accent-card .card-icon {
+    color: #000;
+    background-color: rgba(0,0,0,0.1);
   }
-  /* Tablet y móviles */
+  
+  .accent-card p {
+    color: rgba(0,0,0,0.8);
+  }
+
+  .service-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .service-card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    font-family: var(--font-primary);
+    color: #888;
+    transition: color 0.3s;
+  }
+  
+  .service-card:hover p {
+    color: #ccc;
+  }
+
+  /* Icono flecha */
+  .card-icon {
+    align-self: flex-end;
+    font-size: 1.5rem;
+    color: #333;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.05);
+  }
+
+  /* --- LAYOUT DEL GRID (BENTO) --- */
+  @media (min-width: 901px) {
+    /* Layout Bento Box */
+    .service-card:nth-child(1) { grid-column: 1 / 2; grid-row: 1 / 2; } /* Pequeña */
+    .service-card:nth-child(2) { grid-column: 2 / 4; grid-row: 1 / 2; } /* Grande Horizontal */
+    .service-card:nth-child(3) { grid-column: 1 / 2; grid-row: 2 / 3; } /* Pequeña */
+    .service-card:nth-child(4) { grid-column: 2 / 3; grid-row: 2 / 3; } /* Pequeña */
+    .service-card:nth-child(5) { grid-column: 3 / 4; grid-row: 2 / 3; } /* Pequeña */
+  }
+
+  /* --- RESPONSIVE --- */
   @media (max-width: 900px) {
     .container {
       grid-template-columns: 1fr;
+      gap: 3rem;
     }
-    /* Centramos contenido en pantallas pequeñas */
+    
     .left-content {
-      margin-bottom: 2rem;
       align-items: center;
       text-align: center;
     }
+    
+    .left-content p {
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     .services-grid {
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      grid-auto-rows: auto;
+      grid-template-columns: 1fr; /* Una columna en móvil */
+      grid-auto-rows: auto; /* Altura automática según contenido */
+      gap: 1.5rem;
     }
+    
     .service-card {
-      transform: none;
+      min-height: 200px;
     }
-    .angled-card {
-      transform: none;
+    
+    /* Reseteo de Grid Lines para móvil */
+    .service-card:nth-child(n) { 
+      grid-column: auto; 
+      grid-row: auto; 
     }
-    .services-grid {
-    display: grid;
-    grid-template-columns: 1fr;       /* Una sola columna */
-    grid-auto-rows: auto;
-    justify-items: center;           /* Centra cada tarjeta */
-    gap: 1rem;
-  }
-
-  .service-card {
-    width: 80%;                      /* 80% del ancho del contenedor */
-    max-width: 400px;                /* opcional, para no crecer demasiado */
-  }
-
-  
   }
 </style>
+
+<script type="module" is:client>
+  // Observador simple y reutilizable
+  const observerOptions = {
+    threshold: 0.15, // Se activa cuando se ve el 15% del elemento
+    rootMargin: "0px 0px -50px 0px"
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target); // Solo animar una vez
+      }
+    });
+  }, observerOptions);
+
+  // Seleccionamos texto y tarjetas
+  const elements = document.querySelectorAll('.reveal-text, .reveal-card');
+  elements.forEach((el) => observer.observe(el));
+</script>

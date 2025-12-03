@@ -1,30 +1,22 @@
----
-// Sin frontmatter adicional necesario para este componente
----
-
 <nav class="header-container">
   <div class="header-content">
-    <!-- LOGO / MARCA -->
     <a href="/" class="logo">DevEc</a>
 
-    <!-- BOTÓN HAMBURGUESA (solo en móvil) -->
-    <button class="menu-toggle" aria-label="Abrir menú">
+    <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
 
-    <!-- ENLACES DE NAVEGACIÓN CON BOTÓN ADENTRO -->
     <ul class="nav-links">
-      <li><a href="#como-funciona">¿Cómo Funcionamos?</a></li>
-      <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#precios">Precio</a></li>
-      <li><a href="#faqs">FAQs</a></li>
-      <!-- Botón dentro del menú hamburguesa -->
+      <li><a href="#work" class="nav-link">¿Cómo Funcionamos?</a></li>
+      <li><a href="#servicios" class="nav-link">Servicios</a></li>
+      <li><a href="#precios" class="nav-link">Precio</a></li>
+      <li><a href="#faqs" class="nav-link">FAQs</a></li>
+      
       <li class="nav-action">
         <button class="header-button">Cuéntanos tu proyecto</button>
       </li>
     </ul>
 
-    <!-- BOTÓN DE ACCIÓN VISIBLE EN DESKTOP -->
     <button class="header-button desktop-only">Cuéntanos tu proyecto</button>
   </div>
 </nav>
@@ -35,22 +27,37 @@
     --font-extended: 'Chaney Extended', sans-serif;
     --color-accent: #00E599;
     --color-white: #fff;
+    --glass-bg: rgba(13, 13, 13, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --header-height: 80px; /* Altura estimada para cálculos */
   }
 
-  
+  /* --- 1. AJUSTE DE SCROLL GLOBAL --- */
+  /* Esto evita que el título quede tapado por el header al hacer click */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px; /* Altura del header + un poco de aire */
+  }
+
+  /* --- CONTENEDOR PRINCIPAL --- */
   .header-container {
     position: fixed;
     top: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1200px;
     z-index: 9999;
-    background-color: rgba(13, 13, 13, 0.5);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    animation: fadeInDown 0.8s ease-in-out;
+    
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   }
+
   .header-content {
     display: flex;
     align-items: center;
@@ -58,33 +65,41 @@
     width: 95%;
     margin: 0 auto;
     padding: 0.75rem 0;
-    position: relative;
-    overflow: visible;
   }
+
+  /* --- LOGO --- */
   .logo {
     font-family: var(--font-extended);
     font-size: 1.5rem;
     color: var(--color-white);
     text-decoration: none;
+    letter-spacing: 0.5px;
   }
+
+  /* --- MENU TOGGLE (Móvil) --- */
   .menu-toggle {
     display: none;
     flex-direction: column;
     justify-content: space-between;
-    width: 24px;
-    height: 18px;
+    width: 26px;
+    height: 20px;
     background: none;
     border: none;
     cursor: pointer;
     padding: 0;
+    z-index: 10;
   }
+
   .menu-toggle span {
     display: block;
-    height: 3px;
+    height: 2px;
+    width: 100%;
     border-radius: 2px;
     background-color: var(--color-white);
-    transition: transform 0.3s, opacity 0.3s;
+    transition: transform 0.3s ease, opacity 0.3s ease;
   }
+
+  /* --- ENLACES DE NAVEGACIÓN --- */
   .nav-links {
     list-style: none;
     display: flex;
@@ -93,93 +108,182 @@
     padding: 0;
     align-items: center;
   }
+
   .nav-links a {
     color: var(--color-white);
     text-decoration: none;
     font-family: var(--font-primary);
+    font-size: 0.95rem;
     font-weight: 500;
     transition: color 0.3s ease;
+    opacity: 0.8;
+    position: relative;
   }
-  .nav-links a:hover {
+
+  /* Hover y Estado Activo (ScrollSpy) */
+  .nav-links a:hover,
+  .nav-links a.active {
     color: var(--color-accent);
+    opacity: 1;
   }
-  .nav-action {
-    display: none; /* se muestra solo en móvil */
+
+  /* Pequeño punto debajo del link activo para resaltar más */
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-accent);
+    transition: transform 0.3s ease;
+    border-radius: 2px;
   }
+
+  .nav-links a.active::after {
+    transform: translateX(-50%) scaleX(0.5); /* Punto pequeño */
+  }
+
+  /* --- BOTONES DE ACCIÓN --- */
+  .nav-action { display: none; }
+
   .header-button {
     background-color: var(--color-accent);
     color: #000;
     border: none;
-    border-radius: 24px;
-    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    padding: 0.6rem 1.4rem;
     font-family: var(--font-primary);
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 0.9rem;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
+
   .header-button:hover {
-    background-color: var(--color-white);
-    color: var(--color-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 229, 153, 0.3);
   }
-  .desktop-only {
-    display: inline-block;
-  }
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+
+  .desktop-only { display: inline-block; }
+
+  /* --- RESPONSIVE --- */
   @media (max-width: 768px) {
-    .menu-toggle {
-      display: flex;
-    }
-    .desktop-only {
-      display: none;
-    }
-    /* Menú oculto por defecto y animado en apertura */
+    .menu-toggle { display: flex; }
+    .desktop-only { display: none; }
+
     .nav-links {
       position: absolute;
       top: 100%;
       left: 0;
       width: 100%;
-      background-color: black;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-top: none;
+      
       flex-direction: column;
       align-items: center;
-      gap: 1rem;
-      padding: 1rem 0;
-      border-radius: 0 0 12px 12px;
+      gap: 1.5rem;
+      padding: 0;
+      
+      border-radius: 0 0 16px 16px;
       max-height: 0;
       opacity: 0;
       visibility: hidden;
-      transition: max-height 1s ease, opacity 0.4s ease;
       overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 5px;
     }
+
     .nav-links.active {
-      max-height: 500px;
+      max-height: 400px;
       opacity: 1;
       visibility: visible;
+      padding: 2rem 0;
+      margin-top: 0;
     }
+
     .nav-action {
       display: block;
+      margin-top: 0.5rem;
     }
-    .menu-toggle.active span:nth-child(1) {
-      transform: translateY(7.5px) rotate(45deg);
-    }
-    .menu-toggle.active span:nth-child(2) {
-      opacity: 0;
-    }
-    .menu-toggle.active span:nth-child(3) {
-      transform: translateY(-7.5px) rotate(-45deg);
-    }
+
+    /* Animación icono X */
+    .menu-toggle.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .menu-toggle.active span:nth-child(2) { opacity: 0; transform: translateX(-10px); }
+    .menu-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
   }
 </style>
 
 <script type="module" is:client>
   const toggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav-links');
+  const navLinks = document.querySelectorAll('.nav-link');
 
-  toggle.addEventListener('click', () => {
-    toggle.classList.toggle('active');
-    nav.classList.toggle('active');
+  // --- 1. Lógica del Menú Móvil (Igual que antes) ---
+  if (toggle && nav) {
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isActive = nav.classList.contains('active');
+      toggleMenu(!isActive);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+        toggleMenu(false);
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => toggleMenu(false));
+    });
+  }
+
+  function toggleMenu(open) {
+    if (open) {
+      toggle.classList.add('active');
+      nav.classList.add('active');
+      toggle.setAttribute('aria-expanded', 'true');
+    } else {
+      toggle.classList.remove('active');
+      nav.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  // --- 2. Lógica ScrollSpy (MEJORADA) ---
+  const sections = document.querySelectorAll('section[id]');
+
+  const observerOptions = {
+    // CAMBIO CLAVE: Bajamos el umbral a 0 (basta con que toque la línea)
+    threshold: 0,
+    // Definimos una "línea de disparo" horizontal al 20% desde arriba de la pantalla.
+    // -20% arriba: marguen superior
+    // -80% abajo: ignora lo que pase muy abajo
+    rootMargin: "-20% 0px -80% 0px" 
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // 1. Limpiamos todos
+        navLinks.forEach(link => link.classList.remove('active'));
+
+        // 2. Activamos el actual
+        const id = entry.target.getAttribute('id');
+        // Usamos comillas dobles en el selector para evitar errores
+        const activeLink = document.querySelector(`.nav-links a[href="#${id}"]`);
+
+        if (activeLink) {
+          activeLink.classList.add('active');
+        }
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(section => {
+    observer.observe(section);
   });
 </script>

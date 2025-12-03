@@ -3,272 +3,409 @@ const pricingPlans = [
   {
     title: "Básico",
     price: "$50 - $150",
-    features: [
-      "Landing Pages",
-      "Páginas Informativas",
-      "Portafolios",
-      "Diseños en Figma"
-    ],
-    cta: "Contáctanos",
+    features: [ "Landing Pages", "Páginas Informativas", "Portafolios", "Diseños en Figma" ],
+    cta: "Elegir Básico",
+    popular: false
   },
   {
     title: "Intermedio",
     price: "$200 - $500",
-    features: [
-      "Sitios Webs Corporativos",
-      "Chatbots con IA",
-      "Blogs",
-      "Más ideas que se te ocurran..."
-    ],
-    cta: "Contáctanos",
+    features: [ "Sitios Webs Corporativos", "Chatbots con IA", "Blogs", "Integración de Pagos" ],
+    cta: "Elegir Intermedio",
+    popular: true // Identificador para estilos especiales
   },
   {
     title: "Avanzado",
     price: "$600 - $1000",
-    features: [
-      "Aplicaciones Web a Medida",
-      "CRM",
-      "Tiendas Ecommerce",
-      "Más funciones avanzadas..."
-    ],
-    cta: "Contáctanos",
+    features: [ "Aplicaciones Web a Medida", "CRM / ERP", "Tiendas Ecommerce", "Sistemas Complejos" ],
+    cta: "Elegir Avanzado",
+    popular: false
   }
 ];
 ---
 
 <section class="pricing-section" id="precios">
-  <div class="pricing-header">
+  <div class="bg-glow"></div>
+
+  <div class="pricing-header reveal-text">
     <h2 class="neon-title">Precios</h2>
     <p class="subtitle">
-      Planes que se ajustan a tu proyecto. Encuentra el ideal para ti.
+      Transparencia total. Planes escalables que crecen junto con tu proyecto.
     </p>
   </div>
 
-  <!-- GRID DE 3 PLANES -->
   <div class="pricing-grid">
     {pricingPlans.map((plan, index) => (
       <div 
-        class={`pricing-card ${index === 1 ? "no-bg highlight-border" : ""}`}
+        class={`pricing-card reveal-card ${plan.popular ? "popular-card" : ""}`}
+        style={`--delay: ${index * 150}ms`}
       >
-        <h3 class="plan-title">{plan.title}</h3>
-        <div class="price">
-          <span>{plan.price}</span>
+        {plan.popular && <span class="popular-badge">Más Popular</span>}
+        
+        <div class="card-header">
+          <h3 class="plan-title">{plan.title}</h3>
+          <div class="price">
+            {plan.price}
+          </div>
+          <p class="price-note">Pago único / Por proyecto</p>
         </div>
-
-        <!-- Nota bajo el precio -->
-        <p class="price-note">Los precios varían de acuerdo al proyecto.</p>
 
         <ul class="features-list">
           {plan.features.map((feature) => (
             <li>
-              <span class="check-icon">✓</span> {feature}
+              <span class="check-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span> 
+              {feature}
             </li>
           ))}
         </ul>
+        
         <button class="cta-button">{plan.cta}</button>
       </div>
     ))}
   </div>
 
-  <!-- RECUADRO PERSONALIZADO -->
-  <div class="custom-plan">
+  <div class="custom-plan reveal-up">
+    <div class="custom-icon">✨</div>
     <div class="custom-plan-texts">
-      <h3>Personalizado</h3>
-      <p>Hablemos de tu idea para un plan a tu medida.</p>
+      <h3>¿Necesitas algo único?</h3>
+      <p>Cuéntanos tu idea loca y nosotros nos encargamos de la ingeniería.</p>
     </div>
     <div class="custom-plan-button">
-      <button class="talk-button">Hablemos</button>
+      <button class="talk-button">Cotizar a Medida</button>
     </div>
   </div>
 </section>
 
 <style>
-  /* SECCIÓN PRINCIPAL */
+  :root {
+    --color-accent: #00E599;
+    --font-primary: 'Satoshi', sans-serif;
+    --bg-card: #0c0d0d;
+    --bg-card-hover: #121212;
+  }
+
   .pricing-section {
+    position: relative;
     color: #fff;
     text-align: center;
-    padding: 4rem 2rem;
+    padding: 6rem 1rem;
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 4rem;
     min-height: 800px;
-        z-index: 999;
-    position: relative
+    overflow: hidden; /* Para contener el glow */
+    z-index: 999;
+  }
+
+  /* Fondo Glow decorativo detrás */
+  .bg-glow {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 229, 153, 0.08) 0%, rgba(0,0,0,0) 70%);
+    z-index: -1;
+    pointer-events: none;
   }
 
   /* ENCABEZADO */
   .pricing-header {
     margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
   }
+  .pricing-header.active { opacity: 1; transform: translateY(0); }
+
   .neon-title {
     font-family: var(--font-primary, sans-serif);
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(0, 229, 153, 0.3);
   }
+  
   .subtitle {
     font-family: var(--font-primary, sans-serif);
-    font-size: 1rem;
-    color: #b3b3b3;
-    max-width: 500px;
+    font-size: 1.1rem;
+    color: #a1a1aa;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* GRID */
+  .pricing-grid {
+    display: flex;
+    grid-template-columns: repeat(3, 1fr);
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: stretch; /* Todas las tarjetas misma altura */
+    max-width: 1200px;
     margin: 0 auto;
   }
 
-  /* GRID DE LOS 3 PLANES */
-  .pricing-grid {
-    display: flex;
-    flex-wrap: wrap; /* Para que se ajuste en pantallas pequeñas */
-    gap: 2rem;
-    justify-content: center;
-    align-items: flex-start;
-  }
-
-  /* TARJETAS DE PRECIO */
+  /* TARJETAS */
   .pricing-card {
-    background-color: #0c0d0d; /* Gris muy oscuro */
-    border: 1px solid #333;
-    border-radius: 12px;
-    width: 280px; /* Ajusta según tu gusto */
-    padding: 2rem;
+    background-color: var(--bg-card);
+    border: 1px solid #27272a;
+    border-radius: 16px;
+    width: 320px;
+    padding: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
-    text-align: left;
-    transition: border-color 0.3s ease, transform 0.3s ease;
+    position: relative;
+    transition: all 0.4s ease;
+    
+    /* Animación inicial */
+    opacity: 0;
+    transform: translateY(30px);
+    transition-delay: var(--delay);
   }
+
+  .pricing-card.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   .pricing-card:hover {
-    border-color: #00e599;
-    transform: translateY(-5px);
+    border-color: #3f3f46;
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+    background-color: var(--bg-card-hover);
   }
 
-  /* Plan intermedio sin fondo, sólo borde neon */
-  .no-bg {
-    background-color: transparent;
+  /* ESTILOS CARD POPULAR (INTERMEDIO) */
+  .popular-card {
+    border: 1px solid var(--color-accent);
+    box-shadow: 0 0 30px rgba(0, 229, 153, 0.1);
   }
-  /* Borde destacado en el plan intermedio */
-  .highlight-border {
-    border: 2px solid #00e599;
+  
+  .popular-card:hover {
+    border-color: var(--color-accent); /* Mantiene el borde verde */
+    box-shadow: 0 0 40px rgba(0, 229, 153, 0.2);
   }
 
-  .plan-title {
-    font-family: var(--font-primary, sans-serif);
-    font-size: 1.5rem;
+  .popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-accent);
+    color: #000;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: var(--font-primary);
+  }
+
+  /* CONTENIDO INTERNO CARD */
+  .card-header {
+    border-bottom: 1px solid #27272a;
+    padding-bottom: 1.5rem;
     margin-bottom: 1.5rem;
   }
 
-  .price {
-    font-family: var(--font-primary, sans-serif);
-    font-weight: 500;
-    font-size: 1.5rem;
-    color: #ffffff; /* Color “neon” */
+  .plan-title {
+    font-family: var(--font-primary);
+    font-size: 1.25rem;
+    color: #fff;
     margin-bottom: 0.5rem;
   }
 
+  .price {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+
   .price-note {
-    font-size: 0.9rem;
-    color: #aaa;
-    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    color: #71717a;
+    margin: 0;
   }
 
   .features-list {
     list-style: none;
     padding: 0;
-    margin: 0 0 1.5rem;
+    margin: 0 0 2rem;
     text-align: left;
-    width: 100%;
-    max-width: 220px;
+    flex-grow: 1; /* Empuja el botón hacia abajo */
   }
+  
   .features-list li {
-    margin: 0.75rem 0;
-    color: #ccc;
-    font-family: var(--font-primary, sans-serif);
+    margin: 0.8rem 0;
+    color: #d4d4d8;
+    font-family: var(--font-primary);
     font-size: 0.95rem;
     display: flex;
     align-items: center;
+    gap: 0.75rem;
   }
 
-  /* Icono de “check” */
   .check-icon {
-    color: #00e599;
-    margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background-color: rgba(0, 229, 153, 0.1);
+    border-radius: 50%;
+    color: var(--color-accent);
+  }
+  
+  .check-icon svg {
+    width: 12px;
+    height: 12px;
   }
 
+  /* BOTONES */
   .cta-button {
-    background-color: #00e599;
+    width: 100%;
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #3f3f46;
+    border-radius: 8px;
+    padding: 0.8rem;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .pricing-card:hover .cta-button {
+    background-color: #fff;
+    color: #000;
+    border-color: #fff;
+  }
+
+  /* Botón especial para la tarjeta popular */
+  .popular-card .cta-button {
+    background-color: var(--color-accent);
     color: #000;
     border: none;
-    border-radius: 24px;
-    padding: 0.75rem 1.5rem;
-    cursor: pointer;
-    font-family: var(--font-primary, sans-serif);
-    font-weight: 600;
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
-  .cta-button:hover {
-    background-color: #00cc7d;
+  
+  .popular-card:hover .cta-button {
+    background-color: #00c985; /* Un verde un pelín más oscuro */
+    color: #000;
   }
 
-  /* RECUADRO PERSONALIZADO ABAJO */
+  /* RECUADRO PERSONALIZADO */
   .custom-plan {
-    background-color: #111;
-    border-radius: 12px;
-    padding: 1.5rem 2rem;
-    min-width: 600px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 2rem 3rem;
+    width: 90%;
+    max-width: 900px;
     margin: 0 auto;
-    border: 1px solid #333;
+    border: 1px solid rgba(255,255,255,0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 2rem;
+    
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease;
   }
+  
+  .custom-plan.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .custom-icon {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #fff 0%, #666 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .custom-plan-texts {
+    text-align: left;
+    flex-grow: 1;
+  }
+  
   .custom-plan h3 {
-    font-family: var(--font-primary, sans-serif);
-    font-size: 1.25rem;
+    font-family: var(--font-primary);
+    font-size: 1.5rem;
     margin-bottom: 0.5rem;
     color: #fff;
-    text-align: left;
   }
+  
   .custom-plan p {
-    text-align: left;
-    font-family: var(--font-primary, sans-serif);
-    color: #ccc;
-    font-size: 16px;
-    margin-bottom: 1rem;
+    font-family: var(--font-primary);
+    color: #a1a1aa;
+    margin: 0;
     line-height: 1.5;
   }
+
   .talk-button {
-    background-color: #00e599;
-    color: #000;
-    border: none;
-    border-radius: 24px;
-    padding: 0.75rem 1.5rem;
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 50px;
+    padding: 0.75rem 2rem;
     cursor: pointer;
-    font-family: var(--font-primary, sans-serif);
+    font-family: var(--font-primary);
     font-weight: 600;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: all 0.3s ease;
+    white-space: nowrap;
   }
+  
   .talk-button:hover {
-    background-color: #00cc7d;
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
   }
 
   /* RESPONSIVO */
-  @media (max-width: 768px) {
+  @media (max-width: 850px) {
     .pricing-card {
-      width: 100%;
-      max-width: 300px;
+      max-width: 100%;
     }
+    
     .custom-plan {
-      width: 80%;
-      min-width: 150px;
-      margin-top: 2rem;
-      display: flex;
       flex-direction: column;
       text-align: center;
-      align-items: center;
+      padding: 2rem 1.5rem;
     }
-    .custom-plan h3 {
-    text-align: center;
-  }
-  .custom-plan p {
-    text-align: center;
-  }
     
+    .custom-plan-texts {
+      text-align: center;
+    }
+    
+    .custom-icon {
+      margin-bottom: 0.5rem;
+    }
   }
 </style>
+
+<script type="module" is:client>
+  // Reutilizamos el observador para mantener consistencia
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal-text, .reveal-card, .reveal-up').forEach((el) => {
+    observer.observe(el);
+  });
+</script>

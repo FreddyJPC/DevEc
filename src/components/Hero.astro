@@ -1,20 +1,50 @@
 <section class="hero-section">
+  <!-- Fondo con destellos de luz (Glow Effects) -->
+  <div class="hero-glow glow-left"></div>
+  <div class="hero-glow glow-right"></div>
+
   <div class="hero-content">
-    <h1>
-      Convertimos tus ideas en <span class="font-secondary-italic">realidad</span>
+    
+    <h1 class="reveal-element" style="--delay: 0.1s">
+      Convertimos tus ideas en <span class="font-secondary-italic text-gradient">realidad</span>
     </h1>
-    <p>
-      Diseñamos y desarrollamos soluciones digitales que impulsan tu negocio.
+    
+    <p class="reveal-element" style="--delay: 0.2s">
+      Diseñamos y desarrollamos soluciones web de alto impacto que no solo se ven bien, sino que impulsan el crecimiento real de tu negocio.
     </p>
-    <button>Agenda una llamada</button>
+    
+    <div class="hero-actions reveal-element" style="--delay: 0.3s">
+      <button class="primary-btn" onclick="document.getElementById('work').scrollIntoView({behavior: 'smooth'})">
+        Ver Portafolio
+      </button>
+      <button class="secondary-btn" onclick="window.open('https://wa.me/tu_numero', '_blank')">
+        Hablemos
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+      </button>
+    </div>
   </div>
 
-  <div class="hero-images">
-    <img
-      src="/img/hero-collage-combined.png"
-      alt="Devec showcase de proyectos y servicios"
-      class="hero-single-image"
-    />
+  <div class="hero-images reveal-element" style="--delay: 0.4s">
+    <!-- Contenedor con efecto de flotación continua -->
+    <div class="floating-container">
+      <img
+        src="/img/hero-collage-combined.png"
+        alt="Devec Showcase"
+        class="hero-single-image"
+      />
+      <!-- Elemento decorativo flotante extra (opcional) -->
+      <div class="glass-card">
+        <span class="check-icon">✓</span>
+        <span>Calidad Garantizada</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicador de Scroll -->
+  <div class="scroll-indicator">
+    <div class="mouse">
+      <div class="wheel"></div>
+    </div>
   </div>
 </section>
 
@@ -23,154 +53,275 @@
     --font-primary: 'Satoshi', sans-serif;
     --font-secondary: 'Instrument Serif', serif;
     --color-accent: #00E599;
+    --color-dark: #050505;
   }
 
-  body {
-    margin: 0;
-    overflow-x: hidden; /* Previene scroll horizontal no deseado */
-  }
+  body { margin: 0; overflow-x: hidden; }
 
   .hero-section {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* Usamos gap para separar el texto de la imagen */
-    gap: 2rem;
+    gap: 4rem;
     padding: clamp(2rem, 8vw, 8rem);
-    min-height: 90vh; /* Un poco menos de 100vh a veces se ve mejor */
-    box-sizing: border-box;
-    z-index: 999;
-    position: relative
-
+    min-height: 100vh; /* Ocupa toda la pantalla para impacto */
+    position: relative;
+    color: #fff;
+    overflow: hidden;
   }
 
-  /* --- CONTENIDO DE TEXTO (IZQUIERDA) --- */
+  /* --- EFECTOS DE FONDO (GLOW) --- */
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 229, 153, 0.15) 0%, rgba(0,0,0,0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .glow-left { top: -20%; left: -10%; }
+  .glow-right { bottom: -10%; right: -10%; background: radial-gradient(circle, rgba(0, 100, 255, 0.1) 0%, rgba(0,0,0,0) 70%); }
+
+  /* --- CONTENIDO IZQUIERDA --- */
   .hero-content {
-    flex: 1 1 400px; /* Crece y se encoge, base de 400px */
-    max-width: 800px;
-    animation: fadeInUp 0.8s ease-in-out;
+    flex: 1;
+    max-width: 700px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Badge superior */
+  .badge-container { margin-bottom: 1.5rem; }
+  .new-badge {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-family: var(--font-primary);
+    font-size: 0.85rem;
+    color: #ccc;
+    display: inline-block;
   }
 
   .hero-content h1 {
     font-family: var(--font-primary);
-    /* Tipografía fluida: se adapta suavemente entre 3rem y 4.7rem */
-    font-size: clamp(3rem, 6vw, 4.7rem);
+    font-size: clamp(3rem, 5vw, 5rem);
     line-height: 1.1;
     margin-bottom: 1.5rem;
-    color: white;
+    font-weight: 700;
   }
 
   .font-secondary-italic {
     font-family: var(--font-secondary);
     font-style: italic;
     font-weight: 400;
-    color: var(--color-accent); /* Un toque de color al "realidad" */
+  }
+  
+  .text-gradient {
+    color: var(--color-accent);
+    /* Opcional: Gradiente en texto si te gusta más */
+    /* background: linear-gradient(90deg, #00E599 0%, #00afff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
   }
 
   .hero-content p {
     font-family: var(--font-primary);
-    font-size: clamp(1.1rem, 2vw, 1.3rem);
-    color: #a0a0a0; /* Un gris más suave para fondo oscuro */
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    color: #a0a0a0;
     margin-bottom: 2.5rem;
     line-height: 1.6;
     max-width: 90%;
   }
 
-  .hero-content button {
+  /* Botones */
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .primary-btn {
     background-color: var(--color-accent);
     color: #000;
     border: none;
-    padding: 1rem 2.5rem;
+    padding: 1rem 2rem;
     font-family: var(--font-primary);
     font-weight: 700;
     font-size: 1rem;
-    border-radius: 100px; /* Botón completamente redondeado */
+    border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
   }
 
-  .hero-content button:hover {
-    background-color: #00b584;
-    transform: translateY(-3px); /* Pequeño efecto de elevación */
-    box-shadow: 0 10px 20px -10px rgba(0, 229, 153, 0.5);
+  .primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 229, 153, 0.4);
   }
 
-  /* --- SECCIÓN DE LA IMAGEN ÚNICA (DERECHA) --- */
-  .hero-images {
-    flex: 1 400px;
+  .secondary-btn {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 1rem 2rem;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 50px;
+    cursor: pointer;
     display: flex;
-    justify-content: flex-end; /* Alinea la imagen a la derecha en desktop */
     align-items: center;
-    animation: fadeInRight 1s ease-out;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
   }
 
-  /* Estilos para la nueva imagen única */
+  .secondary-btn:hover {
+    border-color: #fff;
+    background: rgba(255,255,255,0.05);
+  }
+
+  /* --- IMAGEN DERECHA --- */
+  .hero-images {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .floating-container {
+    position: relative;
+    /* Animación continua de flotación */
+    animation: floatHero 6s ease-in-out infinite;
+  }
+
   .hero-single-image {
-    width: 100%; /* Ocupa el ancho disponible de su contenedor */
-    height: auto; /* Mantiene la proporción siempre */
-    max-width: 650px; /* Evita que se haga gigantesca en pantallas muy anchas */
+    width: 100%;
+    max-width: 600px;
+    height: auto;
     object-fit: contain;
-    /* Opcional: un sutil efecto hover */
-    transition: transform 0.5s ease;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5)); /* Sombra real bajo la imagen PNG */
   }
 
-  .hero-single-image:hover {
-      transform: scale(1.02); /* Un "respiro" muy sutil al pasar el mouse */
+  /* Tarjeta de vidrio decorativa */
+  .glass-card {
+    position: absolute;
+    bottom: 40px;
+    left: -20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #fff;
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    
+    /* Animación flotante desfasada */
+    animation: floatHero 5s ease-in-out infinite reverse;
   }
 
+  .check-icon {
+    background: var(--color-accent);
+    color: #000;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
 
-  /* --- ANIMACIONES --- */
+  /* --- INDICADOR DE SCROLL --- */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.7;
+    animation: fadeScroll 2s infinite;
+  }
+
+  .mouse {
+    width: 26px;
+    height: 40px;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    padding-top: 8px;
+  }
+
+  .wheel {
+    width: 4px;
+    height: 8px;
+    background-color: var(--color-accent);
+    border-radius: 2px;
+    animation: scrollWheel 1.5s infinite;
+  }
+
+  /* --- ANIMACIONES KEYFRAMES --- */
+  
+  /* Entrada suave hacia arriba */
   @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  @keyframes fadeInRight {
-      from { opacity: 0; transform: translateX(30px); }
-      to { opacity: 1; transform: translateX(0); }
+  /* Flotación continua */
+  @keyframes floatHero {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
   }
 
+  /* Ruedita del mouse */
+  @keyframes scrollWheel {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(15px); opacity: 0; }
+  }
 
-  /* --- RESPONSIVE: TABLET (Hasta 1024px) --- */
+  /* Clases de utilidad para animación escalonada */
+  .reveal-element {
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: var(--delay);
+  }
+
+  /* --- RESPONSIVE --- */
   @media (max-width: 1024px) {
     .hero-section {
-      padding: 4rem 2rem;
-      min-height: auto; /* Ya no forzamos la altura completa */
-    }
-    .hero-content h1 {
-      font-size: 3.5rem; /* Ajuste manual si clamp no es suficiente */
-    }
-  }
-
-
-  /* --- RESPONSIVE: MÓVIL (Hasta 768px) --- */
-  @media (max-width: 768px) {
-    .hero-section {
-      flex-direction: column; /* IMPORTANTE: Ponemos la imagen arriba del texto en móvil */
-      padding: 6rem 1.5rem 3rem 1.5rem; /* Padding superior para tu navbar */
+      padding: 6rem 2rem 4rem;
+      flex-direction: column-reverse; /* Imagen arriba en móvil, texto abajo? O viceversa */
       text-align: center;
-      gap: 0rem;
+      gap: 3rem;
+      min-height: auto;
     }
 
     .hero-content {
-      padding: 0;
-      width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center; /* Centramos textos y botón */
+      align-items: center;
     }
-
-    .hero-content p {
-        max-width: 100%;
+    
+    .hero-actions {
+      justify-content: center;
     }
-
-    .hero-images {
-      justify-content: center; /* Centramos la imagen horizontalmente */
-      width: 100%;
-    }
-
-    .hero-single-image {
-      max-width: 100%; /* En móvil, que no toque los bordes exactos */
-    }
+    
+    .hero-glow { width: 300px; height: 300px; }
+    
+    .glass-card { display: none; /* Ocultar detalles complejos en móvil pequeño */ }
+    
+    /* En móvil, normalmente queremos la imagen primero para impacto visual */
+    .hero-section { flex-direction: column; } 
+    /* Si prefieres texto primero, cambia a column-reverse */
   }
 </style>
