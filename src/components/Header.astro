@@ -1,23 +1,29 @@
 <nav class="header-container">
   <div class="header-content">
+    <!-- LOGO -->
     <a href="/" class="logo">DevEc</a>
 
+    <!-- BOTÓN HAMBURGUESA -->
     <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
 
+    <!-- ENLACES -->
     <ul class="nav-links">
-      <li><a href="#work" class="nav-link">¿Cómo Funcionamos?</a></li>
-      <li><a href="#servicios" class="nav-link">Servicios</a></li>
-      <li><a href="#precios" class="nav-link">Precio</a></li>
-      <li><a href="#faqs" class="nav-link">FAQs</a></li>
+      <!-- NOTA: Agregamos '/' al inicio para que funcionen desde la página de contacto -->
+      <li><a href="/#work" class="nav-link">¿Cómo Funcionamos?</a></li>
+      <li><a href="/#servicios" class="nav-link">Servicios</a></li>
+      <li><a href="/#precios" class="nav-link">Precio</a></li>
+      <li><a href="/#faqs" class="nav-link">FAQs</a></li>
       
+      <!-- Botón móvil (Convertido a enlace <a>) -->
       <li class="nav-action">
-        <button class="header-button">Cuéntanos tu proyecto</button>
+        <a href="/contacto" class="header-button">Cuéntanos tu proyecto</a>
       </li>
     </ul>
 
-    <button class="header-button desktop-only">Cuéntanos tu proyecto</button>
+    <!-- BOTÓN DESKTOP (Convertido a enlace <a>) -->
+    <a href="/contacto" class="header-button desktop-only">Cuéntanos tu proyecto</a>
   </div>
 </nav>
 
@@ -29,14 +35,12 @@
     --color-white: #fff;
     --glass-bg: rgba(13, 13, 13, 0.85);
     --glass-border: rgba(255, 255, 255, 0.1);
-    --header-height: 80px; /* Altura estimada para cálculos */
   }
 
   /* --- 1. AJUSTE DE SCROLL GLOBAL --- */
-  /* Esto evita que el título quede tapado por el header al hacer click */
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 100px; /* Altura del header + un poco de aire */
+    scroll-padding-top: 100px; 
   }
 
   /* --- CONTENEDOR PRINCIPAL --- */
@@ -120,14 +124,12 @@
     position: relative;
   }
 
-  /* Hover y Estado Activo (ScrollSpy) */
   .nav-links a:hover,
   .nav-links a.active {
     color: var(--color-accent);
     opacity: 1;
   }
 
-  /* Pequeño punto debajo del link activo para resaltar más */
   .nav-links a::after {
     content: '';
     position: absolute;
@@ -142,11 +144,17 @@
   }
 
   .nav-links a.active::after {
-    transform: translateX(-50%) scaleX(0.5); /* Punto pequeño */
+    transform: translateX(-50%) scaleX(0.5); 
   }
 
-  /* --- BOTONES DE ACCIÓN --- */
-  .nav-action { display: none; }
+  /* --- BOTONES DE ACCIÓN (Ahora son enlaces <a> con estilo de botón) --- */
+  .nav-action { 
+    display: none; 
+  }
+  .nav-action .header-button {
+    text-decoration: none !important;
+    color: black;
+  }
 
   .header-button {
     background-color: var(--color-accent);
@@ -158,6 +166,8 @@
     font-weight: 700;
     font-size: 0.9rem;
     cursor: pointer;
+    text-decoration: none; /* Quitamos subrayado de enlace */
+    display: inline-block; /* Importante para que respete padding/margin */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
@@ -188,7 +198,7 @@
       gap: 1.5rem;
       padding: 0;
       
-      border-radius: 16px;
+      border-radius: 0 0 16px 16px;
       max-height: 0;
       opacity: 0;
       visibility: hidden;
@@ -210,7 +220,6 @@
       margin-top: 0.5rem;
     }
 
-    /* Animación icono X */
     .menu-toggle.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
     .menu-toggle.active span:nth-child(2) { opacity: 0; transform: translateX(-10px); }
     .menu-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
@@ -222,7 +231,7 @@
   const nav = document.querySelector('.nav-links');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  // --- 1. Lógica del Menú Móvil (Igual que antes) ---
+  // --- 1. Lógica del Menú Móvil ---
   if (toggle && nav) {
     toggle.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -236,7 +245,9 @@
       }
     });
 
-    navLinks.forEach(link => {
+    // Ahora incluimos también el botón de acción móvil para que cierre el menú al hacer click
+    const allLinks = nav.querySelectorAll('a');
+    allLinks.forEach(link => {
       link.addEventListener('click', () => toggleMenu(false));
     });
   }
@@ -253,37 +264,29 @@
     }
   }
 
-  // --- 2. Lógica ScrollSpy (MEJORADA) ---
+  // --- 2. Lógica ScrollSpy ---
+  // Nota: Esto solo funcionará cuando estemos en la página principal ('/')
+  // Si estamos en /contacto, este código no encontrará las secciones y no hará nada (lo cual es correcto)
   const sections = document.querySelectorAll('section[id]');
 
-  const observerOptions = {
-    // CAMBIO CLAVE: Bajamos el umbral a 0 (basta con que toque la línea)
-    threshold: 0,
-    // Definimos una "línea de disparo" horizontal al 20% desde arriba de la pantalla.
-    // -20% arriba: marguen superior
-    // -80% abajo: ignora lo que pase muy abajo
-    rootMargin: "-20% 0px -80% 0px" 
-  };
+  if (sections.length > 0) {
+    const observerOptions = {
+      threshold: 0,
+      rootMargin: "-20% 0px -80% 0px" 
+    };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // 1. Limpiamos todos
-        navLinks.forEach(link => link.classList.remove('active'));
-
-        // 2. Activamos el actual
-        const id = entry.target.getAttribute('id');
-        // Usamos comillas dobles en el selector para evitar errores
-        const activeLink = document.querySelector(`.nav-links a[href="#${id}"]`);
-
-        if (activeLink) {
-          activeLink.classList.add('active');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          const id = entry.target.getAttribute('id');
+          // Ajustamos el selector para que coincida con href="/#id"
+          const activeLink = document.querySelector(`.nav-links a[href="/#${id}"]`);
+          if (activeLink) activeLink.classList.add('active');
         }
-      }
-    });
-  }, observerOptions);
+      });
+    }, observerOptions);
 
-  sections.forEach(section => {
-    observer.observe(section);
-  });
+    sections.forEach(section => observer.observe(section));
+  }
 </script>

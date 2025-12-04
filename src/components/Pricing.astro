@@ -12,7 +12,7 @@ const pricingPlans = [
     price: "$200 - $500",
     features: [ "Sitios Webs Corporativos", "Chatbots con IA", "Blogs", "Integración de Pagos" ],
     cta: "Elegir Intermedio",
-    popular: true // Identificador para estilos especiales
+    popular: true 
   },
   {
     title: "Avanzado",
@@ -44,9 +44,7 @@ const pricingPlans = [
         
         <div class="card-header">
           <h3 class="plan-title">{plan.title}</h3>
-          <div class="price">
-            {plan.price}
-          </div>
+          <div class="price">{plan.price}</div>
           <p class="price-note">Pago único / Por proyecto</p>
         </div>
 
@@ -61,7 +59,8 @@ const pricingPlans = [
           ))}
         </ul>
         
-        <button class="cta-button">{plan.cta}</button>
+        <!-- CAMBIO: Botón ahora es enlace -->
+        <a href="/contacto" class="cta-button">{plan.cta}</a>
       </div>
     ))}
   </div>
@@ -73,7 +72,8 @@ const pricingPlans = [
       <p>Cuéntanos tu idea loca y nosotros nos encargamos de la ingeniería.</p>
     </div>
     <div class="custom-plan-button">
-      <button class="talk-button">Cotizar a Medida</button>
+      <!-- CAMBIO: Botón ahora es enlace -->
+      <a href="/contacto" class="talk-button">Cotizar a Medida</a>
     </div>
   </div>
 </section>
@@ -85,7 +85,9 @@ const pricingPlans = [
     --bg-card: #0c0d0d;
     --bg-card-hover: #121212;
   }
-
+  .nav-action .cta-button {
+    text-decoration: none !important;
+  }
   .pricing-section {
     position: relative;
     color: #fff;
@@ -95,11 +97,9 @@ const pricingPlans = [
     flex-direction: column;
     gap: 4rem;
     min-height: 800px;
-    overflow: hidden; /* Para contener el glow */
-    z-index: 999;
+    overflow: hidden;
   }
 
-  /* Fondo Glow decorativo detrás */
   .bg-glow {
     position: absolute;
     top: 20%;
@@ -112,7 +112,7 @@ const pricingPlans = [
     pointer-events: none;
   }
 
-  /* ENCABEZADO */
+  /* Header */
   .pricing-header {
     margin-bottom: 1rem;
     opacity: 0;
@@ -130,7 +130,7 @@ const pricingPlans = [
   }
   
   .subtitle {
-    font-family: var(--font-primary, sans-serif);
+    font-family: var(--font-primary);
     font-size: 1.1rem;
     color: #a1a1aa;
     max-width: 600px;
@@ -138,40 +138,33 @@ const pricingPlans = [
     line-height: 1.6;
   }
 
-  /* GRID */
+  /* Grid */
   .pricing-grid {
-    display: flex;
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
-    flex-wrap: wrap;
     gap: 2rem;
-    justify-content: center;
-    align-items: stretch; /* Todas las tarjetas misma altura */
     max-width: 1200px;
     margin: 0 auto;
+    width: 100%;
+    align-items: stretch;
   }
 
-  /* TARJETAS */
   .pricing-card {
     background-color: var(--bg-card);
     border: 1px solid #27272a;
     border-radius: 16px;
-    width: 320px;
+    width: 100%;
     padding: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
     position: relative;
     transition: all 0.4s ease;
-    
-    /* Animación inicial */
     opacity: 0;
     transform: translateY(30px);
     transition-delay: var(--delay);
   }
 
-  .pricing-card.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .pricing-card.active { opacity: 1; transform: translateY(0); }
 
   .pricing-card:hover {
     border-color: #3f3f46;
@@ -180,14 +173,12 @@ const pricingPlans = [
     background-color: var(--bg-card-hover);
   }
 
-  /* ESTILOS CARD POPULAR (INTERMEDIO) */
   .popular-card {
     border: 1px solid var(--color-accent);
     box-shadow: 0 0 30px rgba(0, 229, 153, 0.1);
   }
-  
   .popular-card:hover {
-    border-color: var(--color-accent); /* Mantiene el borde verde */
+    border-color: var(--color-accent);
     box-shadow: 0 0 40px rgba(0, 229, 153, 0.2);
   }
 
@@ -207,71 +198,28 @@ const pricingPlans = [
     font-family: var(--font-primary);
   }
 
-  /* CONTENIDO INTERNO CARD */
-  .card-header {
-    border-bottom: 1px solid #27272a;
-    padding-bottom: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .plan-title {
-    font-family: var(--font-primary);
-    font-size: 1.25rem;
-    color: #fff;
-    margin-bottom: 0.5rem;
-  }
-
-  .price {
-    font-family: var(--font-primary);
-    font-weight: 700;
-    font-size: 2rem;
-    color: #fff;
-    margin-bottom: 0.25rem;
-  }
-
-  .price-note {
-    font-size: 0.85rem;
-    color: #71717a;
-    margin: 0;
-  }
+  .card-header { border-bottom: 1px solid #27272a; padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+  .plan-title { font-family: var(--font-primary); font-size: 1.25rem; color: #fff; margin-bottom: 0.5rem; }
+  .price { font-family: var(--font-primary); font-weight: 700; font-size: 2rem; color: #fff; margin-bottom: 0.25rem; }
+  .price-note { font-size: 0.85rem; color: #71717a; margin: 0; }
 
   .features-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 2rem;
-    text-align: left;
-    flex-grow: 1; /* Empuja el botón hacia abajo */
+    list-style: none; padding: 0; margin: 0 0 2rem; text-align: left; flex-grow: 1;
   }
-  
   .features-list li {
-    margin: 0.8rem 0;
-    color: #d4d4d8;
-    font-family: var(--font-primary);
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    margin: 0.8rem 0; color: #d4d4d8; font-family: var(--font-primary); font-size: 0.95rem; display: flex; align-items: center; gap: 0.75rem;
   }
 
   .check-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    background-color: rgba(0, 229, 153, 0.1);
-    border-radius: 50%;
-    color: var(--color-accent);
+    display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; min-width: 20px;
+    background-color: rgba(0, 229, 153, 0.1); border-radius: 50%; color: var(--color-accent);
   }
-  
-  .check-icon svg {
-    width: 12px;
-    height: 12px;
-  }
+  .check-icon svg { width: 12px; height: 12px; }
 
-  /* BOTONES */
+  /* ESTILOS DE LOS BOTONES (Enlaces) */
   .cta-button {
+    text-decoration: none;
+    display: block;
     width: 100%;
     background-color: transparent;
     color: #fff;
@@ -285,24 +233,17 @@ const pricingPlans = [
   }
 
   .pricing-card:hover .cta-button {
-    background-color: #fff;
-    color: #000;
-    border-color: #fff;
+    background-color: #fff; color: #000; border-color: #fff;
   }
 
-  /* Botón especial para la tarjeta popular */
   .popular-card .cta-button {
-    background-color: var(--color-accent);
-    color: #000;
-    border: none;
+    background-color: var(--color-accent); color: #000; border: none;
   }
-  
   .popular-card:hover .cta-button {
-    background-color: #00c985; /* Un verde un pelín más oscuro */
-    color: #000;
+    background-color: #00c985; color: #000;
   }
 
-  /* RECUADRO PERSONALIZADO */
+  /* CUSTOM PLAN */
   .custom-plan {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(10px);
@@ -316,16 +257,11 @@ const pricingPlans = [
     justify-content: space-between;
     align-items: center;
     gap: 2rem;
-    
     opacity: 0;
     transform: translateY(50px);
     transition: all 0.8s ease;
   }
-  
-  .custom-plan.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .custom-plan.active { opacity: 1; transform: translateY(0); }
 
   .custom-icon {
     font-size: 2.5rem;
@@ -333,27 +269,14 @@ const pricingPlans = [
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+  .custom-plan-texts { text-align: left; flex-grow: 1; }
+  .custom-plan h3 { font-family: var(--font-primary); font-size: 1.5rem; margin-bottom: 0.5rem; color: #fff; }
+  .custom-plan p { font-family: var(--font-primary); color: #a1a1aa; margin: 0; line-height: 1.5; }
 
-  .custom-plan-texts {
-    text-align: left;
-    flex-grow: 1;
-  }
-  
-  .custom-plan h3 {
-    font-family: var(--font-primary);
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: #fff;
-  }
-  
-  .custom-plan p {
-    font-family: var(--font-primary);
-    color: #a1a1aa;
-    margin: 0;
-    line-height: 1.5;
-  }
-
+  /* Botón "Hablemos" estilo */
   .talk-button {
+    text-decoration: none;
+    display: inline-block;
     background-color: transparent;
     color: #fff;
     border: 1px solid #fff;
@@ -365,37 +288,18 @@ const pricingPlans = [
     transition: all 0.3s ease;
     white-space: nowrap;
   }
-  
   .talk-button:hover {
-    background-color: #fff;
-    color: #000;
-    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+    background-color: #fff; color: #000; box-shadow: 0 0 20px rgba(255,255,255,0.3);
   }
 
-  /* RESPONSIVO */
-  @media (max-width: 850px) {
-    .pricing-card {
-      max-width: 100%;
-    }
-    
-    .custom-plan {
-      flex-direction: column;
-      text-align: center;
-      padding: 2rem 1.5rem;
-    }
-    
-    .custom-plan-texts {
-      text-align: center;
-    }
-    
-    .custom-icon {
-      margin-bottom: 0.5rem;
-    }
+  @media (max-width: 960px) {
+    .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+    .custom-plan { flex-direction: column; text-align: center; gap: 1.5rem; }
+    .custom-plan-texts { text-align: center; }
   }
 </style>
 
 <script type="module" is:client>
-  // Reutilizamos el observador para mantener consistencia
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
